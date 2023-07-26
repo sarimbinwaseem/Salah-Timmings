@@ -1,10 +1,15 @@
 import sys
-# import Adafruit_GPIO.SPI as SPI
-# import Adafruit_SSD1306
+import time as timelib
+import Adafruit_GPIO.SPI as SPI
+import Adafruit_SSD1306
 
-# from PIL import Image
-# from PIL import ImageDraw
-# from PIL import ImageFont
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFont
+
+from namaztime import NamazTime
+
+nt = NamazTime()
 
 FajirTime = str(sheet[f'{Fajir}{currentDay}'].value)
 TuluTime = str(sheet[f'{Tulu}{currentDay}'].value)
@@ -97,23 +102,28 @@ x = 0
 # Some other nice fonts to try: http://www.dafont.com/bitmap.php
 
 try:
-    font = ImageFont.truetype('TheImpostor.ttf', 20)
+    font = ImageFont.truetype('Fonts/TheImpostor.ttf', 20)
 except:
     font = ImageFont.load_default()
 while True:
 
-    # Draw a black filled box to clear the image.
-    draw.rectangle((0,0,width,height), outline=0, fill=0)
+    current_time, next_namaz_time = nt.get_all_times()
 
-    draw.text((x, top), str(timeParser2(currTime())),  font=font, fill=255)
-    draw.text((x, top+28), nextNamazTime(currentTime, TimeList), font=font, fill=255)
+    # Draw a black filled box to clear the image.
+    draw.rectangle((0, 0, width, height), outline = 0, fill = 0)
+
+    draw.text((x, top), current_time,
+        font = font, fill = 255)
+    
+    draw.text((x, top+28), next_namaz_time,
+        font=font, fill=255)
 
     # Display image.
     try:
         
         disp.image(image)
         disp.display()
-        timelib.sleep(.1)
+        timelib.sleep(.2)
     except KeyboardInterrupt:
         print("Keyboard Interrupt... Exiting")
         disp.clear()
