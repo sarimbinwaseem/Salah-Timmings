@@ -5,23 +5,6 @@ import sys
 # from PIL import Image
 # from PIL import ImageDraw
 # from PIL import ImageFont
-   
-
-currentDate = datetime.datetime.today().date()
-currentDay = currentDate.day
-# currentDay = currentDate.strftime("%d-%m")
-currentTime = datetime.datetime.today().time().strftime("%H:%M")
-# currentTime = timeParser2(currentTime)
-print("Current Date:", currentDate)
-print("Current Time:", currentTime)
-print("Current Day:", currentDay)
-
-currentMonth = str(currentDate)[5:7]
-print("Month:", currentMonth)
-# print("Current Day:", currentDay)
-
-
-
 
 FajirTime = str(sheet[f'{Fajir}{currentDay}'].value)
 TuluTime = str(sheet[f'{Tulu}{currentDay}'].value)
