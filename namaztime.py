@@ -1,6 +1,7 @@
 import openpyxl
 import time as timelib
 import datetime
+import shelve
 # import sys
 
 
@@ -15,23 +16,27 @@ class NamazTime:
 	"""
 	def __init__(self):
 		super(NamazTime, self).__init__()
-		self.Fajir = "C"
-		self.Tulu = "D"
-		self.Zuhur = "F"
-		self.Asar = "G"
-		self.Maghrib = "H"
-		self.Isha = "I"
 
-		self.sheet = None
-		self._open_sheet()
+		# Index where the data is
+		self.Fajir = 2
+		self.Tulu = 3
+		self.Zuhur = 5
+		self.Asar = 6
+		self.Maghrib = 7
+		self.Isha = 8
 
 		self.current_date = None
 		self.current_time = None
 
-	def _open_sheet(self) -> None:
+		self._get_today_data()
+
+
+	def _get_today_data(self) -> None:
+		# May use shelve to store all timmings.
+		self._get_current_date()
 		# Opening sheet by Month
-		workbook = openpyxl.load_workbook(f'XLSX/July.xlsx')
-		self.sheet = workbook.active # Activating sheet
+		with shelve.open(f"Times/July") as db:
+			self.today_data = db[str(self.current_date.day)]
 
 	def _get_current_time(self) -> datetime.time:
 		# currentTime = datetime.datetime.today().time().strftime("%H:%M")
@@ -42,11 +47,11 @@ class NamazTime:
 	def _get_current_date(self) -> datetime.date:
 
 		current_date = datetime.datetime.today().date()
-		self.current_date
+		self.current_date = current_date
 		return current_date
 
-	def _get_namaz_time(self, waqt, date) -> datetime.time:
-		return self.sheet[f'{waqt}{date}'].value
+	def _get_namaz_time(self, waqt) -> datetime.time:
+		return self.today_data[waqt]
 
 	def _time2display(self, thetime: datetime.time) -> str:
 		thetime = str(thetime)[:5]
@@ -54,10 +59,10 @@ class NamazTime:
 		display_time = timelib.strftime("%I:%M %p", t)
 		return display_time
 
-	def get_all_times(self):
+	def get_all_times(self) -> tuple:
 		pass
 		
 n = NamazTime()
-print(n._time2display(n._get_namaz_time(n.Isha, 26)))
+print(n._time2display(n._get_namaz_time(n.Isha)))
 
 
