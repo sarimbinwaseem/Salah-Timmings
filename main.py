@@ -38,6 +38,13 @@ SPI_DEVICE = 0
 # 128x64 display with hardware I2C:
 ####
 disp = Adafruit_SSD1306.SSD1306_128_64(rst = RST)
+# (   uint8_t     w,
+# uint8_t     h,
+# TwoWire *   twi = &Wire,
+# int8_t  rst_pin = -1,
+# uint32_t    clkDuring = 400000UL,
+# uint32_t    clkAfter = 100000UL 
+# )   
 
 # Note you can change the I2C address by passing an i2c_address parameter like:
 # disp = Adafruit_SSD1306.SSD1306_128_64(rst=RST, i2c_address=0x3C)
