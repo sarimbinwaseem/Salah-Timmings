@@ -1,7 +1,8 @@
-import openpyxl
 import time as timelib
 import datetime
 import shelve
+import threading
+
 # import sys
 
 
@@ -17,25 +18,40 @@ class NamazTime:
 	def __init__(self):
 		super(NamazTime, self).__init__()
 
-		# Index where the data is
-		self.Fajir = 2
-		self.Tulu = 3
-		self.Zuhur = 5
-		self.Asar = 6
-		self.Maghrib = 7
-		self.Isha = 8
+		# Indexes where the data is
+		self._FAJIR = 2
+		self._TULU = 3
+		self._ZUHUR = 5
+		self._ASAR = 6
+		self._MAGHRIB = 7
+		self._ISHA = 8
 
-		self.current_date = None
-		self.current_time = None
+		self.current_date = self._get_current_date()
+		self.current_time = self._get_current_time()
+		self.today_data = None
+		self.month = self.backup_month = self.current_date.strftime("%B")
+		self.date = self.backup_date = self.current_date.strftime("%d")
 
 		self._get_today_data()
 
+	def check_changes(self):
+		"""Check for month and date changes"""
+
+		self._get_current_date()
+
+		if self.backup_date != self.date:
+			self._get_today_data()
+
+		if self.backup_month != self.month:
+			self._get_today_data()
 
 	def _get_today_data(self) -> None:
-		# May use shelve to store all timmings.
-		self._get_current_date()
-		# Opening sheet by Month
-		with shelve.open(f"Times/July") as db:
+		# Call it with threading to check month change.
+
+		month = self.current_date.strftime("%B")
+		
+		# Opening current month data and today's timmings.
+		with shelve.open(f"Times/{month}") as db:
 			self.today_data = db[str(self.current_date.day)]
 
 	def _get_current_time(self) -> datetime.time:
@@ -50,19 +66,44 @@ class NamazTime:
 		self.current_date = current_date
 		return current_date
 
+	def _get_current_namaz(self) -> datetime.time:
+
+		namaz_times = (
+		self.today_data[self._FAJIR],
+		self.today_data[self._TULU],
+		self.today_data[self._ZUHUR],
+		self.today_data[self._ASAR],
+		self.today_data[self._MAGHRIB],
+		self.today_data[self._ISHA]
+			)
+
+		for n_time in namaz_times:
+			if n_time > self.current_time:
+				return n_time
+
 	def _get_namaz_time(self, waqt) -> datetime.time:
 		return self.today_data[waqt]
 
-	def _time2display(self, thetime: datetime.time) -> str:
-		thetime = str(thetime)[:5]
-		t = timelib.strptime(thetime, "%H:%M")
+	def _time2display(self, theTime: datetime.time) -> str:
+		theTime = str(theTime)[:5]
+		t = timelib.strptime(theTime, "%H:%M")
 		display_time = timelib.strftime("%I:%M %p", t)
 		return display_time
 
 	def get_all_times(self) -> tuple:
-		pass
 		
-n = NamazTime()
-print(n._time2display(n._get_namaz_time(n.Isha)))
+		self._get_current_time()
+		current_namaz_time = self._get_current_namaz()
+		current_namaz_time = self._time2display(current_namaz_time)
+		current_time = self._time2display(self.current_time)
+		return (current_time, current_namaz_time)
 
+if __name__ == "__main__":
+	n = NamazTime()
+	thread = threading.Thread(target = n.check_changes)
+	thread.start()
 
+	while True:
+		e = n.get_all_times()
+		print(e)
+		timelib.sleep(.3)

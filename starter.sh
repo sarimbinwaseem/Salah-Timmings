@@ -5,4 +5,4 @@ echo "Completed"
 
 echo "Now Running..."
 python /home/pi/Desktop/NamazTimingsDisplay/main.py
-echo "Started Namaz Timmings"
+echo "Started Salah Timmings"

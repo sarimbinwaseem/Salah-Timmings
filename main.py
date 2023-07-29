@@ -11,25 +11,15 @@ from namaztime import NamazTime
 
 nt = NamazTime()
 
-FajirTime = str(sheet[f'{Fajir}{currentDay}'].value)
-TuluTime = str(sheet[f'{Tulu}{currentDay}'].value)
-ZuhurTime = str(sheet[f'{Zuhur}{currentDay}'].value)
-AsarTime = str(sheet[f'{Asar}{currentDay}'].value)
-MaghribTime = str(sheet[f'{Maghrib}{currentDay}'].value)
-IshaTime = str(sheet[f'{Isha}{currentDay}'].value)
+thread = threading.Thread(target = n.check_changes)
+thread.start()
 
-TimeList = [FajirTime, TuluTime, ZuhurTime, AsarTime, MaghribTime, IshaTime]
-
-def nextNamazTime(currentTime, TimeList):
-    t = ""
-    for nTime in TimeList:
-        if nTime > currTime():
-            t = str(timeParser2(nTime))
-            return t
+# def nextNamazTime(currentTime, TimeList):
 
 ### Display Code Started ###
-	
-RST = None     # on the PiOLED this pin isnt used
+
+# on the PiOLED this pin isnt used
+RST = None     
 # Note the following are only used with SPI:
 DC = 23
 SPI_PORT = 0
@@ -84,13 +74,13 @@ image = Image.new('1', (width, height))
 draw = ImageDraw.Draw(image)
 
 # Draw a black filled box to clear the image.
-draw.rectangle((0,0,width,height), outline=0, fill=0)
+draw.rectangle((0, 0, width, height), outline = 0, fill = 0)
 
 # Draw some shapes.
 # First define some constants to allow easy resizing of shapes.
 padding = 3
 top = padding
-bottom = height-padding
+bottom = height - padding
 # Move left to right keeping track of the current x position for drawing shapes.
 x = 0
 
@@ -105,6 +95,9 @@ try:
     font = ImageFont.truetype('Fonts/TheImpostor.ttf', 20)
 except:
     font = ImageFont.load_default()
+
+
+### Getting data and displaying times.
 while True:
 
     current_time, next_namaz_time = nt.get_all_times()
@@ -116,14 +109,15 @@ while True:
         font = font, fill = 255)
     
     draw.text((x, top+28), next_namaz_time,
-        font=font, fill=255)
+        font = font, fill = 255)
 
     # Display image.
     try:
         
         disp.image(image)
         disp.display()
-        timelib.sleep(.2)
+        timelib.sleep(.3)
+
     except KeyboardInterrupt:
         print("Keyboard Interrupt... Exiting")
         disp.clear()
