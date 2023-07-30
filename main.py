@@ -1,6 +1,7 @@
 import sys
+import threading
 import time as timelib
-import Adafruit_GPIO.SPI as SPI
+# import Adafruit_GPIO.SPI as SPI
 import Adafruit_SSD1306
 
 from PIL import Image
@@ -11,7 +12,7 @@ from namaztime import NamazTime
 
 nt = NamazTime()
 
-thread = threading.Thread(target = n.check_changes)
+thread = threading.Thread(target = nt.check_changes)
 thread.start()
 
 # def nextNamazTime(currentTime, TimeList):
@@ -95,7 +96,8 @@ x = 0
 # Load default font.
 #font = ImageFont.load_default()
 
-# Alternatively load a TTF font.  Make sure the .ttf font file is in the same directory as the python script!
+# Alternatively load a TTF font.
+# Make sure the .ttf font file is in the same directory as the python script!
 # Some other nice fonts to try: http://www.dafont.com/bitmap.php
 
 try:
