@@ -1,6 +1,6 @@
 # Salah-Timmings
 #### In Progress.
-[x] Make a logic to return Isha ending time.
+- [ ] Make a logic to return Isha ending time.
 ## Display Salah Timmings on small display, running on Raspberry Pi.
 
 
@@ -12,17 +12,17 @@
  3. SDA
  4. SCL
 
-```
-VCC -> 3V3
 
-GND -> GND
+>VCC -> 3V3
 
-SDA -> SDA
+>GND -> GND
 
-SCL -> SCL
-```
+>SDA -> SDA
 
-Check Adafruit's webiste for other displays' connections.
+>SCL -> SCL
+
+
+Check Adafruit's [webiste](https://learn.adafruit.com/ssd1306-oled-displays-with-raspberry-pi-and-beaglebone-black/wiring) for other displays' connections.
 
 ## Setup:
 
@@ -45,4 +45,4 @@ sudo python main.py
 
 Unfortunately, My SSD1306 display is not working at the moment. i2cdetect is not detecting it so, I cannot work on this project further. 
 
-But the code side of this project is almost complete and is giving correct timmings (except the ending of Isha time (Haven't checked yet but I can sense.). Ending time of Isha may be returned by method after 00:00 at night {see code}).
+But the code side of this project is almost complete and is giving correct timmings (except the ending of Isha time (Haven't checked yet but I can sense.). Ending time of Isha may be returned by method after 00:00 at night [see code](https://github.com/sarimbinwaseem/Salah-Timmings/blob/main/namaztime.py)).
