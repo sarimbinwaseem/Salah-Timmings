@@ -2,3 +2,4 @@ Adafruit_GPIO==1.0.3
 Adafruit_SSD1306==1.6.2
 openpyxl==3.1.2
 Pillow==10.0.0
+# sudo pip install RPi.GPIO

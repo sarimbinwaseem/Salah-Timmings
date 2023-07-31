@@ -1,9 +1,9 @@
+import sys
 import time as timelib
 import datetime
 import shelve
 import threading
 
-# import sys
 
 
 class NamazTime:
@@ -41,9 +41,11 @@ class NamazTime:
 
 		if self.backup_date != self.date:
 			self._get_today_data()
+			self.backup_date = self.date
 
 		if self.backup_month != self.month:
 			self._get_today_data()
+			self.backup_month = self.month
 
 	def _get_today_data(self) -> None:
 		# Call it with threading to check month change.
@@ -104,6 +106,9 @@ if __name__ == "__main__":
 	thread.start()
 
 	while True:
-		e = n.get_all_times()
-		print(e)
-		timelib.sleep(.3)
+		try:
+			e = n.get_all_times()
+			print(e, end = "\r")
+			timelib.sleep(.3)
+		except KeyboardInterrupt:
+			sys.exit()
