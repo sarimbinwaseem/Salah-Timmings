@@ -1,2 +1,0 @@
-Make a new thread to check day and month change:
-	if any is changed call respictive fucntion to change data

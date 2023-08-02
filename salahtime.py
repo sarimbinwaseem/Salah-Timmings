@@ -8,7 +8,7 @@ import threading
 
 class SalahTime:
 	"""
-	This class will get salah time from XLSX file and
+	This class will get salah time from pickled XLSX file and
 	pass it to the display module.
 
 	two main returns:
@@ -28,9 +28,9 @@ class SalahTime:
 
 		self.current_date = self._get_current_date()
 		self.current_time = self._get_current_time()
-		self.today_data = None
-		self.month = self.backup_month = self.current_date.strftime("%B")
-		self.date = self.backup_date = self.current_date.strftime("%d")
+		self._today_data = None
+		self.month = self._backup_month = self.current_date.strftime("%B")
+		self.date = self._backup_date = self.current_date.strftime("%d")
 
 		self._get_today_data()
 
@@ -39,13 +39,13 @@ class SalahTime:
 
 		self._get_current_date()
 
-		if self.backup_date != self.date:
+		if self._backup_date != self.date:
 			self._get_today_data()
-			self.backup_date = self.date
+			self._backup_date = self.date
 
-		if self.backup_month != self.month:
+		if self._backup_month != self.month:
 			self._get_today_data()
-			self.backup_month = self.month
+			self._backup_month = self.month
 
 	def _get_today_data(self) -> None:
 		# Call it with threading to check month change.
@@ -54,7 +54,7 @@ class SalahTime:
 		
 		# Opening current month data and today's timmings.
 		with shelve.open(f"Times/{self.month}") as db:
-			self.today_data = db[str(self.current_date.day)]
+			self._today_data = db[str(self.current_date.day)]
 
 	def _get_current_time(self) -> datetime.time:
 
@@ -71,12 +71,12 @@ class SalahTime:
 	def _get_salah_time(self) -> datetime.time:
 
 		salah_times = (
-		self.today_data[self._FAJIR],
-		self.today_data[self._TULU],
-		self.today_data[self._ZUHUR],
-		self.today_data[self._ASAR],
-		self.today_data[self._MAGHRIB],
-		self.today_data[self._ISHA]
+		self._today_data[self._FAJIR],
+		self._today_data[self._TULU],
+		self._today_data[self._ZUHUR],
+		self._today_data[self._ASAR],
+		self._today_data[self._MAGHRIB],
+		self._today_data[self._ISHA]
 			)
 
 		salah_time = None
@@ -94,11 +94,11 @@ class SalahTime:
 		return salah_time
 
 	# def _get_salah_time(self, waqt) -> datetime.time:
-	# 	return self.today_data[waqt]
+	# 	return self._today_data[waqt]
 
-	def _time2display(self, theTime: datetime.time) -> str:
-		theTime = str(theTime)[:5]
-		t = timelib.strptime(theTime, "%H:%M")
+	def _time2display(self, the_time: datetime.time) -> str:
+		the_time = str(the_time)[:5]
+		t = timelib.strptime(the_time, "%H:%M")
 		display_time = timelib.strftime("%I:%M %p", t)
 		return display_time
 
