@@ -1,7 +1,9 @@
 # Salah-Timmings
-#### In Progress.
-- [ ] Make a logic to return Isha ending time.
 ## Display Salah Timmings on small display, running on Raspberry Pi.
+#### In Progress.
+
+- [x] Make a logic to return Isha ending time (i.e. Fajir start time of next day).
+- [ ] Confirm and correct the timmings.
 
 
 ### Pinouts and connections:
@@ -26,7 +28,7 @@ Check Adafruit's [webiste](https://learn.adafruit.com/ssd1306-oled-displays-with
 
 ## Setup:
 
-1. Load Raspberry Pi OS on your RPi.
+1. Load [Raspberry Pi OS](https://www.raspberrypi.com/software/) on your RPi.
 2. Enter command and enable I2C or SPI from Interface options as needed:
 
 ```bash 
@@ -39,10 +41,10 @@ sudo raspi-config
 sudo python main.py
 ```
 
-#### If you are getting shelve library error, try upgrading to newer Python version.
+#### If you are getting shelve library error, try upgrading to newer Python version. I have tried on 3.11.3 & 3.11.4.
 
 ## Conclusion:
 
-Unfortunately, My SSD1306 display is not working at the moment. i2cdetect is not detecting it so, I cannot work on this project further. 
+Unfortunately, My SSD1306 display is broken. i2cdetect is not detecting it so, I cannot work on this project further. 
 
 But the code side of this project is almost complete and is giving correct timmings (except the ending of Isha time (Haven't checked yet but I can sense.). Ending time of Isha may be returned by method after 00:00 at night [see code](https://github.com/sarimbinwaseem/Salah-Timmings/blob/main/namaztime.py)).

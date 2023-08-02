@@ -50,14 +50,14 @@ class NamazTime:
 	def _get_today_data(self) -> None:
 		# Call it with threading to check month change.
 
-		month = self.current_date.strftime("%B")
+		# month = self.current_date.strftime("%B")
 		
 		# Opening current month data and today's timmings.
-		with shelve.open(f"Times/{month}") as db:
+		with shelve.open(f"Times/{self.month}") as db:
 			self.today_data = db[str(self.current_date.day)]
 
 	def _get_current_time(self) -> datetime.time:
-		# currentTime = datetime.datetime.today().time().strftime("%H:%M")
+
 		current_time = datetime.datetime.today().time()
 		self.current_time = current_time
 		return current_time
@@ -68,7 +68,7 @@ class NamazTime:
 		self.current_date = current_date
 		return current_date
 
-	def _get_current_namaz(self) -> datetime.time:
+	def _get_namaz_time(self) -> datetime.time:
 
 		namaz_times = (
 		self.today_data[self._FAJIR],
@@ -79,12 +79,22 @@ class NamazTime:
 		self.today_data[self._ISHA]
 			)
 
+		namaz_time = None
 		for n_time in namaz_times:
 			if n_time > self.current_time:
-				return n_time
+				namaz_time = n_time
+				break
+		
+		if namaz_time is None:
+			with shelve.open(f"Times/{self.month}") as db:
+				next_day_data = db[str(self.current_date.day + 1)]
 
-	def _get_namaz_time(self, waqt) -> datetime.time:
-		return self.today_data[waqt]
+			namaz_time = next_day_data[self._FAJIR]
+
+		return namaz_time
+
+	# def _get_namaz_time(self, waqt) -> datetime.time:
+	# 	return self.today_data[waqt]
 
 	def _time2display(self, theTime: datetime.time) -> str:
 		theTime = str(theTime)[:5]
@@ -95,7 +105,7 @@ class NamazTime:
 	def get_all_times(self) -> tuple:
 		
 		self._get_current_time()
-		current_namaz_time = self._get_current_namaz()
+		current_namaz_time = self._get_namaz_time()
 		current_namaz_time = self._time2display(current_namaz_time)
 		current_time = self._time2display(self.current_time)
 		return (current_time, current_namaz_time)
