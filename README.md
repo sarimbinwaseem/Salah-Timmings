@@ -47,4 +47,4 @@ sudo python main.py
 
 Unfortunately, My SSD1306 display is broken. i2cdetect is not detecting it so, I cannot work on this project further. 
 
-But the code side of this project is almost complete and is giving correct timmings (except the ending of Isha time (Haven't checked yet but I can sense.). Ending time of Isha may be returned by method after 00:00 at night [see code](https://github.com/sarimbinwaseem/Salah-Timmings/blob/main/namaztime.py)).
+But the code side of this project is almost complete and is giving correct timmings.
