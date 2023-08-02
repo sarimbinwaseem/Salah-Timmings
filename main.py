@@ -8,7 +8,7 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 
-from namaztime import NamazTime
+from salahtime import SalahTime
 
 nt = NamazTime()
 

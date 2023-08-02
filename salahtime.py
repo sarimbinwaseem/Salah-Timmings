@@ -6,17 +6,17 @@ import threading
 
 
 
-class NamazTime:
+class SalahTime:
 	"""
-	This class will get namaz time from XLSX file and
+	This class will get salah time from XLSX file and
 	pass it to the display module.
 
 	two main returns:
 	current time to display
-	Namaz time to display.
+	Salah time to display.
 	"""
 	def __init__(self):
-		super(NamazTime, self).__init__()
+		super(SalahTime, self).__init__()
 
 		# Indexes where the data is
 		self._FAJIR = 2
@@ -68,9 +68,9 @@ class NamazTime:
 		self.current_date = current_date
 		return current_date
 
-	def _get_namaz_time(self) -> datetime.time:
+	def _get_salah_time(self) -> datetime.time:
 
-		namaz_times = (
+		salah_times = (
 		self.today_data[self._FAJIR],
 		self.today_data[self._TULU],
 		self.today_data[self._ZUHUR],
@@ -79,21 +79,21 @@ class NamazTime:
 		self.today_data[self._ISHA]
 			)
 
-		namaz_time = None
-		for n_time in namaz_times:
+		salah_time = None
+		for n_time in salah_times:
 			if n_time > self.current_time:
-				namaz_time = n_time
+				salah_time = n_time
 				break
 		
-		if namaz_time is None:
+		if salah_time is None:
 			with shelve.open(f"Times/{self.month}") as db:
 				next_day_data = db[str(self.current_date.day + 1)]
 
-			namaz_time = next_day_data[self._FAJIR]
+			salah_time = next_day_data[self._FAJIR]
 
-		return namaz_time
+		return salah_time
 
-	# def _get_namaz_time(self, waqt) -> datetime.time:
+	# def _get_salah_time(self, waqt) -> datetime.time:
 	# 	return self.today_data[waqt]
 
 	def _time2display(self, theTime: datetime.time) -> str:
@@ -105,13 +105,13 @@ class NamazTime:
 	def get_all_times(self) -> tuple:
 		
 		self._get_current_time()
-		current_namaz_time = self._get_namaz_time()
-		current_namaz_time = self._time2display(current_namaz_time)
+		current_salah_time = self._get_salah_time()
+		current_salah_time = self._time2display(current_salah_time)
 		current_time = self._time2display(self.current_time)
-		return (current_time, current_namaz_time)
+		return (current_time, current_salah_time)
 
 if __name__ == "__main__":
-	n = NamazTime()
+	n = SalahTime()
 	thread = threading.Thread(target = n.check_changes)
 	thread.start()
 
