@@ -10,9 +10,9 @@ from PIL import ImageFont
 
 from salahtime import SalahTime
 
-nt = NamazTime()
+stime = SalahTime()
 
-thread = threading.Thread(target = nt.check_changes)
+thread = threading.Thread(target = stime.check_changes)
 thread.start()
 
 # def nextNamazTime(currentTime, TimeList):
@@ -109,7 +109,7 @@ except:
 ### Getting data and displaying times.
 while True:
 
-    current_time, next_namaz_time = nt.get_all_times()
+    current_time, next_namaz_time = stime.get_all_times()
 
     # Draw a black filled box to clear the image.
     draw.rectangle((0, 0, width, height), outline = 0, fill = 0)
@@ -117,7 +117,7 @@ while True:
     draw.text((x, top), current_time,
         font = font, fill = 255)
     
-    draw.text((x, top+28), next_namaz_time,
+    draw.text((x, top + 28), next_namaz_time,
         font = font, fill = 255)
 
     # Display image.
@@ -125,7 +125,7 @@ while True:
         
         disp.image(image)
         disp.display()
-        timelib.sleep(.3)
+        timelib.sleep(.4)
 
     except KeyboardInterrupt:
         print("Keyboard Interrupt... Exiting")

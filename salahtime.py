@@ -14,10 +14,15 @@ class SalahTime:
 	two main returns:
 	current time to display
 	Salah time to display.
+
+	Usage:
+	stime = SalahTime()
+	stime.get_all_times()
 	"""
 	def __init__(self):
 		super(SalahTime, self).__init__()
 
+		self.check_changes_flag = True
 		# Indexes where the data is
 		self._FAJIR = 2
 		self._TULU = 3
@@ -36,16 +41,18 @@ class SalahTime:
 
 	def check_changes(self):
 		"""Check for month and date changes"""
+		while self.check_changes_flag:
+			self._get_current_date()
 
-		self._get_current_date()
+			if self._backup_date != self.date:
+				self._get_today_data()
+				self._backup_date = self.date
 
-		if self._backup_date != self.date:
-			self._get_today_data()
-			self._backup_date = self.date
+			if self._backup_month != self.month:
+				self._get_today_data()
+				self._backup_month = self.month
 
-		if self._backup_month != self.month:
-			self._get_today_data()
-			self._backup_month = self.month
+			timelib.sleep(1)
 
 	def _get_today_data(self) -> None:
 		# Call it with threading to check month change.
@@ -58,15 +65,23 @@ class SalahTime:
 
 	def _get_current_time(self) -> datetime.time:
 
+		# current_time = datetime.time(22, 0, 32, 452845)
+
 		current_time = datetime.datetime.today().time()
 		self.current_time = current_time
 		return current_time
 
 	def _get_current_date(self) -> datetime.date:
 
+		# current_date = datetime.datetime(2023, 9, 30)
+
 		current_date = datetime.datetime.today().date()
 		self.current_date = current_date
 		return current_date
+
+	def _number2month(self, number):
+		month = datetime.datetime(2023, number, 3).strftime("%B")
+		return month
 
 	def _get_salah_time(self) -> datetime.time:
 
@@ -86,10 +101,21 @@ class SalahTime:
 				break
 		
 		if salah_time is None:
-			with shelve.open(f"Times/{self.month}") as db:
-				next_day_data = db[str(self.current_date.day + 1)]
 
-			salah_time = next_day_data[self._FAJIR]
+			try:
+				with shelve.open(f"Times/{self.month}") as db:
+					next_day_data = db[str(self.current_date.day + 1)]
+
+				salah_time = next_day_data[self._FAJIR]
+
+			except KeyError: # Possible month change.
+				current_month_number = self.current_date.strftime("%m").replace('0', '')
+				next_month_name = self._number2month(int(current_month_number) + 1)
+
+				with shelve.open(f"Times/{next_month_name}") as db:
+					next_day_data = db[str(1)]
+
+				salah_time = next_day_data[self._FAJIR]
 
 		return salah_time
 
@@ -111,14 +137,16 @@ class SalahTime:
 		return (current_time, current_salah_time)
 
 if __name__ == "__main__":
-	n = SalahTime()
-	thread = threading.Thread(target = n.check_changes)
+	stime = SalahTime()
+	thread = threading.Thread(target = stime.check_changes)
 	thread.start()
 
 	while True:
 		try:
-			e = n.get_all_times()
+			e = stime.get_all_times()
 			print(e, end = "\r")
 			timelib.sleep(.3)
 		except KeyboardInterrupt:
+			# Stopping thread
+			stime.check_changes_flag = False
 			sys.exit()

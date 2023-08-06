@@ -5,7 +5,7 @@
 - [x] Make a logic to return Isha ending time (i.e. Fajir start time of next day).
 - [ ] Confirm and correct the timmings.
 - [ ] Simulate a month ending and observe behaviour. I reckon some errors may occur at the end of the month.
-
+- [ ] 3rd info to show: Remaining time to next Salah.
 
 ### Pinouts and connections:
  I have a SSD1306 display with 4 pins:
