@@ -101,7 +101,7 @@ x = 0
 # Some other nice fonts to try: http://www.dafont.com/bitmap.php
 
 try:
-	font = ImageFont.truetype('Fonts//ZIPs/Titillium_Web/TitilliumWeb-SemiBold.ttf', 20)
+	font = ImageFont.truetype('Fonts/ZIPs/Titillium_Web/TitilliumWeb-SemiBold.ttf', 20)
 except:
 	font = ImageFont.load_default()
 
