@@ -25,7 +25,7 @@
 >SCL -> SCL
 
 
-Check Adafruit's [webiste](https://learn.adafruit.com/ssd1306-oled-displays-with-raspberry-pi-and-beaglebone-black/wiring) for other displays' connections.
+Check Adafruit's [website](https://learn.adafruit.com/ssd1306-oled-displays-with-raspberry-pi-and-beaglebone-black/wiring) for other displays' connections.
 
 ## Setup:
 
@@ -43,7 +43,7 @@ sudo python main.py
 ```
 
 > [!IMPORTANT]
-> If you are getting shelve library error, try upgrading to newer Python version. I have tried on 3.11.3 & 3.11.4.
+> If you are getting shelve library error, try upgrading to newer Python version. I have tried on 3.11.3 & 3.11.4. You can try this [website](https://www.build-python-from-source.com/) for alternate install of Python: 
 
 
 ## Conclusion:
