@@ -110,22 +110,22 @@ except:
 while True:
 	try:
 
-	current_time, next_namaz_time = stime.get_all_times()
+		current_time, next_namaz_time = stime.get_all_times()
 
-	# Draw a black filled box to clear the image.
-	draw.rectangle((0, 0, width, height), outline = 0, fill = 0)
+		# Draw a black filled box to clear the image.
+		draw.rectangle((0, 0, width, height), outline = 0, fill = 0)
 
-	draw.text((x, top), current_time,
-		font = font, fill = 255)
-	
-	draw.text((x, top + 28), next_namaz_time,
-		font = font, fill = 255)
-
-	# Display image.
+		draw.text((x, top), current_time,
+			font = font, fill = 255)
 		
-	disp.image(image)
-	disp.display()
-	timelib.sleep(.4)
+		draw.text((x, top + 28), next_namaz_time,
+			font = font, fill = 255)
+
+		# Display image.
+			
+		disp.image(image)
+		disp.display()
+		timelib.sleep(.4)
 
 	except KeyboardInterrupt:
 		print("Keyboard Interrupt... Exiting")
