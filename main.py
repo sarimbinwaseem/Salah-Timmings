@@ -101,34 +101,36 @@ x = 0
 # Some other nice fonts to try: http://www.dafont.com/bitmap.php
 
 try:
-    font = ImageFont.truetype('Fonts//ZIPs/Titillium_Web/TitilliumWeb-SemiBold.ttf', 20)
+	font = ImageFont.truetype('Fonts//ZIPs/Titillium_Web/TitilliumWeb-SemiBold.ttf', 20)
 except:
-    font = ImageFont.load_default()
+	font = ImageFont.load_default()
 
 
 ### Getting data and displaying times.
 while True:
+	try:
 
-    current_time, next_namaz_time = stime.get_all_times()
+	current_time, next_namaz_time = stime.get_all_times()
 
-    # Draw a black filled box to clear the image.
-    draw.rectangle((0, 0, width, height), outline = 0, fill = 0)
+	# Draw a black filled box to clear the image.
+	draw.rectangle((0, 0, width, height), outline = 0, fill = 0)
 
-    draw.text((x, top), current_time,
-        font = font, fill = 255)
-    
-    draw.text((x, top + 28), next_namaz_time,
-        font = font, fill = 255)
+	draw.text((x, top), current_time,
+		font = font, fill = 255)
+	
+	draw.text((x, top + 28), next_namaz_time,
+		font = font, fill = 255)
 
-    # Display image.
-    try:
-        
-        disp.image(image)
-        disp.display()
-        timelib.sleep(.4)
+	# Display image.
+		
+	disp.image(image)
+	disp.display()
+	timelib.sleep(.4)
 
-    except KeyboardInterrupt:
-        print("Keyboard Interrupt... Exiting")
-        disp.clear()
-        disp.display()
-        sys.exit()       
+	except KeyboardInterrupt:
+		print("Keyboard Interrupt... Exiting")
+		disp.clear()
+		disp.display()
+		stime.check_changes_flag = False
+		thread.join()
+		sys.exit()       
