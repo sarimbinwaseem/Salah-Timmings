@@ -42,10 +42,12 @@ sudo raspi-config
 sudo python main.py
 ```
 
-#### If you are getting shelve library error, try upgrading to newer Python version. I have tried on 3.11.3 & 3.11.4.
+> [!IMPORTANT]
+> If you are getting shelve library error, try upgrading to newer Python version. I have tried on 3.11.3 & 3.11.4.
+
 
 ## Conclusion:
 
-Unfortunately, My SSD1306 display is broken. i2cdetect is not detecting it so, I cannot work on this project further. 
+~~Unfortunately, My SSD1306 display is broken. i2cdetect is not detecting it so, I cannot work on this project further.~~
 
-But the code side of this project is almost complete and is giving correct timmings.
+I have bought a new OLED SSD1306 display and successfully completed the project. Will share pictures soon.
