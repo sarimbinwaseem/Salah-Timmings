@@ -20,7 +20,7 @@ thread.start()
 ### Display Code Started ###
 
 # on the PiOLED this pin isnt used
-RST = None     
+RST = None
 # Note the following are only used with SPI:
 DC = 23
 SPI_PORT = 0
@@ -45,7 +45,7 @@ disp = Adafruit_SSD1306.SSD1306_128_64(rst = RST)
 # int8_t  rst_pin = -1,
 # uint32_t    clkDuring = 400000UL,
 # uint32_t    clkAfter = 100000UL 
-# )   
+# )
 
 # Note you can change the I2C address by passing an i2c_address parameter like:
 # disp = Adafruit_SSD1306.SSD1306_128_64(rst=RST, i2c_address=0x3C)
@@ -117,12 +117,12 @@ while True:
 
 		draw.text((x, top), current_time,
 			font = font, fill = 255)
-		
+
 		draw.text((x, top + 28), next_namaz_time,
 			font = font, fill = 255)
 
 		# Display image.
-			
+
 		disp.image(image)
 		disp.display()
 		timelib.sleep(.4)
@@ -133,4 +133,4 @@ while True:
 		disp.display()
 		stime.check_changes_flag = False
 		thread.join()
-		sys.exit()       
+		sys.exit()
