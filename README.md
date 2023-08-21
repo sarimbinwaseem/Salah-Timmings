@@ -36,7 +36,12 @@ Check Adafruit's [website](https://learn.adafruit.com/ssd1306-oled-displays-with
 sudo raspi-config
 ``` 
 
-3. Change main.py file as needed for your display then run:
+3. Get XLSX timming files for your location and save them in XLSX folder.
+4. Run xl2shelve.py to convert XLSX files to readable objects.
+> [!IMPORTANT]
+> You could get into errors if you blindly run the scripts. Read the script then modify.
+5. Change index of Salahs w.r.t. to indexes of XLSX file.
+6. Change main.py file as needed for your display then run:
 
 ```bash
 sudo python main.py
