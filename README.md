@@ -6,6 +6,7 @@
 - [ ] Confirm and correct the timmings.
 - [x] Simulate a month ending and observe behaviour. I reckon some errors may occur at the end of the month. (Solved)
 - [ ] 3rd info to show: Remaining time to next Salah. Maybe after getting new SSD1306 display.
+- [ ] Add a physical momentary button to display for 5 seconds then turn off the display (to avoid bur-in).
 
 ### Pinouts and connections:
  I have a SSD1306 display with 4 pins:
