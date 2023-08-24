@@ -1,12 +1,16 @@
 # Salah-Timmings
 ## Display Salah Timmings on small display, running on Raspberry Pi.
+
+![SSD1306 showing current time and next day's Fajar time.](Images/1692878231377-2.jpg)
+![SSD1306 showing current and next Salah's time.](Images/1692870991070-2.jpg)
+
 #### In Progress.
 
 - [x] Make a logic to return Isha ending time (i.e. Fajir start time of next day).
+- [x] Simulate a month ending and observe behaviour. I reckon some errors may occur at the end of the month.
 - [ ] Confirm and correct the timmings.
-- [x] Simulate a month ending and observe behaviour. I reckon some errors may occur at the end of the month. (Solved)
 - [ ] 3rd info to show: Remaining time to next Salah. Maybe after getting new SSD1306 display.
-- [ ] Add a physical momentary button to display for 5 seconds then turn off the display (to avoid bur-in).
+- [ ] Add a physical momentary button to display for 5 seconds then turn off the display (to avoid burn-in).
 
 ### Pinouts and connections:
  I have a SSD1306 display with 4 pins:
@@ -56,4 +60,4 @@ sudo python main.py
 
 ~~Unfortunately, My SSD1306 display is broken. i2cdetect is not detecting it so, I cannot work on this project further.~~
 
-I have bought a new OLED SSD1306 display and successfully completed the project. Will share pictures soon.
+I have bought a new OLED SSD1306 display and successfully completed the project.
