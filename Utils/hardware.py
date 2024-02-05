@@ -21,9 +21,9 @@ class Hardware:
         GPIO.setup(self._BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
         GPIO.add_event_detect(
-            BUTTON,
+            self._BUTTON,
             GPIO.RISING,
-            callback=lambda stime, display, timelib: display_loop(
+            callback=lambda PIN, stime, display, timelib: display_loop(
                 PIN, stime, display, timelib
             ),
         )
