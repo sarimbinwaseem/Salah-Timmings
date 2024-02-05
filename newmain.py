@@ -8,7 +8,7 @@ from Utils.hardware import Hardware
 
 
 LOOP = True
-def display_loop(PIN, stime, display, timelib):
+def display_loop(PIN, stime, display):
 	### Getting data and displaying times.
 	while LOOP:
 		current_time, next_salah_time = stime.get_all_times()
@@ -16,14 +16,14 @@ def display_loop(PIN, stime, display, timelib):
 
 		# Display image.
 		# display.display_image()
-		# timelib.sleep(.4)
+		timelib.sleep(.4)
 
 		print(current_time, next_salah_time)
 
 def main():
 	stime = SalahTime()
 	display = Display()
-	hard = Hardware(display_loop)
+	hard = Hardware(display_loop, stime, display)
 	print("[+] Objects initialized...")
 
 	display.begin_display()
