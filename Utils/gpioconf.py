@@ -11,6 +11,6 @@ FLAG = True
 
 GPIO.setup(BUZZER, GPIO.OUT)
 GPIO.output(BUZZER, GPIO.LOW)
-GPIO.setup(BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(BUTTON, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 
 
