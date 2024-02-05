@@ -8,8 +8,9 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 
-from salahtime import SalahTime
+from Utils.salahtime import SalahTime
 
+print("Salah Timmings imported...")
 stime = SalahTime()
 
 thread = threading.Thread(target = stime.check_changes)
@@ -44,7 +45,7 @@ disp = Adafruit_SSD1306.SSD1306_128_64(rst = RST)
 # TwoWire *   twi = &Wire,
 # int8_t  rst_pin = -1,
 # uint32_t    clkDuring = 400000UL,
-# uint32_t    clkAfter = 100000UL 
+# uint32_t    clkAfter = 100000UL
 # )
 
 # Note you can change the I2C address by passing an i2c_address parameter like:
@@ -66,7 +67,13 @@ disp = Adafruit_SSD1306.SSD1306_128_64(rst = RST)
 # disp = Adafruit_SSD1306.SSD1306_128_32(rst=RST, dc=DC, sclk=18, din=25, cs=22)
 
 # Initialize library.
-disp.begin()
+try:
+	disp.begin()
+except OSError:
+	print("Display module may be not be connected!. Exiting...")
+	stime.check_changes_flag = False
+	thread.join()
+	sys.exit(1)
 
 # Clear display.
 disp.clear()

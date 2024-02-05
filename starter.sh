@@ -4,5 +4,5 @@ sleep 1m
 echo "Completed"
 
 echo "Now Running..."
-python /home/pi/Desktop/NamazTimingsDisplay/main.py
+python3.11 /home/pi/Desktop/NamazTimingsDisplay/main.py
 echo "Started Salah Timmings"
