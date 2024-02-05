@@ -6,7 +6,7 @@ from PIL import ImageFont
 
 
 class Display:
-    """docstring for Display"""
+    """All display related stuff"""
 
     def __init__(self):
         super(Display, self).__init__()

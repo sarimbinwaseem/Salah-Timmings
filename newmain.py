@@ -9,9 +9,7 @@ from Utils.display import Display
 def main():
 	stime = SalahTime()
 	display = Display()
-
-	thread = threading.Thread(target=stime.check_changes)
-	thread.start()
+	print("[+] Objects initialized...")
 
 	display.begin_display()
 	display.set_image_support()
@@ -21,11 +19,14 @@ def main():
 	try:
 		display.display_image(image)
 	except OSError:
-		print("Exiting...!")
-		stime.check_changes_flag = False
-		thread.join()
+		print("[-] Display module may not be connected.")
+		print("[-] Exiting...!")
 		sys.exit()
 
+
+	thread = threading.Thread(target=stime.check_changes)
+	thread.start()
+	print("[+] Check for time change started.")
 
 	### Getting data and displaying times.
 	while True:
@@ -39,7 +40,7 @@ def main():
 			timelib.sleep(.4)
 
 		except KeyboardInterrupt:
-			print("Exiting...!")
+			print("[-] Exiting...!")
 			display.clear()
 			stime.check_changes_flag = False
 			thread.join()
