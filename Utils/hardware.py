@@ -6,7 +6,7 @@ import RPi.GPIO as GPIO
 
 class Hardware():
 	"""docstring for Hardware"""
-	def __init__(self):
+	def __init__(self, display_loop):
 		super(Hardware, self).__init__()
 		
 		GPIO.setmode(GPIO.BCM)
@@ -17,6 +17,8 @@ class Hardware():
 		GPIO.setup(self._BUZZER, GPIO.OUT)
 		GPIO.output(self._BUZZER, GPIO.LOW)
 		GPIO.setup(self._BUTTON, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+
+		GPIO.add_event_detect(BUTTON, GPIO.RISING, callback=display_loop)
 
 	def buzz(self, iterations: int):
 
@@ -31,5 +33,6 @@ class Hardware():
 			GPIO.output(self._BUZZER, GPIO.LOW)
 			time.sleep(1)
 
-
+	def my_callback(self, function):
+		function()
 
