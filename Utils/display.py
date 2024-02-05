@@ -16,7 +16,7 @@ class Display:
         self.DC = 23
         self.SPI_PORT = 0
         self.SPI_DEVICE = 0
-        self.disp = Adafruit_SSD1306.SSD1306_128_64(rst=RST)
+        self.disp = Adafruit_SSD1306.SSD1306_128_64(rst=None)
         self.X = 0
 
         try:
