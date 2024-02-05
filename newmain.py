@@ -5,13 +5,6 @@ import time as timelib
 from Utils.salahtime import SalahTime
 from Utils.display import Display
 
-def exiting(display, stime, thread):
-
-	print("Exiting...!")
-	display.clear()
-	stime.check_changes_flag = False
-	thread.join()
-	sys.exit()
 
 def main():
 	stime = SalahTime()
@@ -28,7 +21,10 @@ def main():
 	try:
 		display.display_image(image)
 	except OSError:
-		exiting(display, stime, thread)
+		print("Exiting...!")
+		stime.check_changes_flag = False
+		thread.join()
+		sys.exit()
 
 
 	### Getting data and displaying times.
@@ -43,7 +39,11 @@ def main():
 			timelib.sleep(.4)
 
 		except KeyboardInterrupt:
-			exiting(display, stime, thread)
+			print("Exiting...!")
+			display.clear()
+			stime.check_changes_flag = False
+			thread.join()
+			sys.exit()
 
 
 if __name__ == "__main__":
