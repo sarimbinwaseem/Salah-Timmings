@@ -4,35 +4,41 @@ import sys
 import time
 import RPi.GPIO as GPIO
 
-class Hardware():
-	"""docstring for Hardware"""
-	def __init__(self, display_loop):
-		super(Hardware, self).__init__()
-		
-		GPIO.setmode(GPIO.BCM)
-		self._BUZZER = 25
-		self._BUTTON = 24
-		self._FLAG = True
-		
-		GPIO.setup(self._BUZZER, GPIO.OUT)
-		GPIO.output(self._BUZZER, GPIO.LOW)
-		GPIO.setup(self._BUTTON, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 
-		GPIO.add_event_detect(BUTTON, GPIO.RISING, callback=display_loop)
+class Hardware:
+    """docstring for Hardware"""
 
-	def buzz(self, iterations: int):
+    def __init__(self, display_loop):
+        super(Hardware, self).__init__()
 
-		if iterations == 1:
-			GPIO.output(self._BUZZER, GPIO.HIGH)
-			time.sleep(1)
-			GPIO.output(self._BUZZER, GPIO.LOW)
+        GPIO.setmode(GPIO.BCM)
+        self._BUZZER = 25
+        self._BUTTON = 24
+        self._FLAG = True
 
-		for _ in range(iterations):
-			GPIO.output(self._BUZZER, GPIO.HIGH)
-			time.sleep(1)
-			GPIO.output(self._BUZZER, GPIO.LOW)
-			time.sleep(1)
+        GPIO.setup(self._BUZZER, GPIO.OUT)
+        GPIO.output(self._BUZZER, GPIO.LOW)
+        GPIO.setup(self._BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-	def my_callback(self, function):
-		function()
+        GPIO.add_event_detect(
+            BUTTON,
+            GPIO.RISING,
+            callback=lambda stime, display, timelib: display_loop(
+                PIN, stime, display, timelib
+            ),
+        )
 
+    def buzz(self, iterations: int):
+        if iterations == 1:
+            GPIO.output(self._BUZZER, GPIO.HIGH)
+            time.sleep(1)
+            GPIO.output(self._BUZZER, GPIO.LOW)
+
+        for _ in range(iterations):
+            GPIO.output(self._BUZZER, GPIO.HIGH)
+            time.sleep(1)
+            GPIO.output(self._BUZZER, GPIO.LOW)
+            time.sleep(1)
+
+    def my_callback(self, function):
+        function()

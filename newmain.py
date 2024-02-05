@@ -8,7 +8,7 @@ from Utils.hardware import Hardware
 
 
 LOOP = True
-def display_loop():
+def display_loop(PIN, stime, display, timelib):
 	### Getting data and displaying times.
 	while LOOP:
 		current_time, next_salah_time = stime.get_all_times()
