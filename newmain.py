@@ -45,12 +45,12 @@ def main():
 
 	
 
-		except KeyboardInterrupt:
-			print("[-] Exiting...!")
-			display.clear()
-			stime.check_changes_flag = False
-			thread.join()
-			sys.exit()
+		# except KeyboardInterrupt:
+		# 	print("[-] Exiting...!")
+		# 	display.clear()
+		# 	stime.check_changes_flag = False
+		# 	thread.join()
+		# 	sys.exit()
 
 
 if __name__ == "__main__":
