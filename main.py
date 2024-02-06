@@ -24,7 +24,7 @@ def display_loop(*args):
 
 		print(current_time, next_salah_time)
 
-	display.clear()
+#	display.clear()
 
 
 def main():
@@ -50,7 +50,9 @@ def main():
 			# print("[-] Exiting...!")
 			# sys.exit()
 
-		thread = threading.Thread(target=stime.check_changes, daemon=True)
+		# Program is in loop and stuck because of this thread.
+		# Ending this thread will exit the program.
+		thread = threading.Thread(target=stime.check_changes)
 		thread.start()
 		print("[+] Check for the time change has been started.")
 

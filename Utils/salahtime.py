@@ -43,18 +43,21 @@ class SalahTime:
 
 	def check_changes(self):
 		"""Check for month and date changes"""
-		while self.check_changes_flag:
-			self._get_current_date()
+		try:
+			while self.check_changes_flag:
+				self._get_current_date()
 
-			if self._backup_date != self.date:
-				self._get_today_data()
-				self._backup_date = self.date
+				if self._backup_date != self.date:
+					self._get_today_data()
+					self._backup_date = self.date
 
-			if self._backup_month != self.month:
-				self._get_today_data()
-				self._backup_month = self.month
+				if self._backup_month != self.month:
+					self._get_today_data()
+					self._backup_month = self.month
 
-			timelib.sleep(1)
+				timelib.sleep(1)
+		except KeyboardInterrupt:
+			self.check_changes_flag = False
 
 	def _get_today_data(self) -> None:
 		# Call it with threading to check month change.
