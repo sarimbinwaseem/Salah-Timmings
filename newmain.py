@@ -8,17 +8,20 @@ from Utils.hardware import Hardware
 
 
 LOOP = True
-def display_loop(PIN, stime, display):
+def display_loop(*args):
 	### Getting data and displaying times.
-	while LOOP:
-		current_time, next_salah_time = stime.get_all_times()
+	print(args)
+#	while LOOP:
+#		current_time, next_salah_time = stime.get_all_times()
 		# display.create_image(draw, current_time, next_salah_time)
 
 		# Display image.
 		# display.display_image()
-		timelib.sleep(.4)
+#		timelib.sleep(.4)
 
-		print(current_time, next_salah_time)
+#		print(current_time, next_salah_time)
+#		print("In the loop...")
+
 
 def main():
 	stime = SalahTime()

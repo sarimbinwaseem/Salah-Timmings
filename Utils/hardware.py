@@ -8,7 +8,7 @@ import RPi.GPIO as GPIO
 class Hardware:
     """docstring for Hardware"""
 
-    def __init__(self, display_loop, stime, display, timelib):
+    def __init__(self, display_loop, stime, display):
         super(Hardware, self).__init__()
 
         GPIO.setmode(GPIO.BCM)
@@ -23,9 +23,9 @@ class Hardware:
         GPIO.add_event_detect(
             self._BUTTON,
             GPIO.RISING,
-            callback=lambda PIN, stime, display: display_loop(
+            callback=lambda PIN: display_loop(
                 PIN, stime, display
-            ),
+            )
         )
 
     def buzz(self, iterations: int):
