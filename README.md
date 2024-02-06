@@ -7,9 +7,9 @@
 #### In Progress.
 
 - [x] Make a logic to return Isha ending time (i.e. Fajir start time of next day).
-- [x] Simulate a month ending and observe behaviour. I reckon some errors may occur at the end of the month.
+- [x] Simulate a month ending and observe behavior. I reckon some errors may occur at the end of the month.
 - [ ] Confirm and correct the timmings.
-- [ ] 3rd info to show: Remaining time to next Salah. Maybe after getting new SSD1306 display.
+- [ ] 3rd info to show: Remaining time to next Salah.
 - [ ] Add a physical momentary button to display for 5 seconds then turn off the display (to avoid burn-in).
 
 ### Pinouts and connections:
@@ -45,7 +45,7 @@ sudo raspi-config
 4. Run xl2shelve.py to convert XLSX files to readable objects.
 > [!IMPORTANT]
 > You could get into errors if you blindly run the scripts. Read the script then modify.
-5. Change index of Salahs w.r.t. to indexes of XLSX file.
+5. Change index of Salahs w.r.t. to indexes of XLSX file (if needed).
 6. Change main.py file as needed for your display then run:
 
 ```bash
