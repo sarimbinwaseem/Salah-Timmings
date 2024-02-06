@@ -11,16 +11,18 @@ LOOP = True
 def display_loop(*args):
 	### Getting data and displaying times.
 	print(args)
-#	while LOOP:
-#		current_time, next_salah_time = stime.get_all_times()
+	stime = args[1]
+	display = args[2]
+	for _ in range(13):
+		current_time, next_salah_time = stime.get_all_times()
 		# display.create_image(draw, current_time, next_salah_time)
 
 		# Display image.
 		# display.display_image()
-#		timelib.sleep(.4)
+		timelib.sleep(.4)
 
-#		print(current_time, next_salah_time)
-#		print("In the loop...")
+		print(current_time, next_salah_time)
+		print("In the loop...")
 
 
 def main():
