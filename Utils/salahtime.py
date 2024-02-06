@@ -1,9 +1,10 @@
+"""Salah Timmings module"""
+
 import sys
 import time as timelib
 import datetime
 import shelve
 import threading
-
 
 
 class SalahTime:
@@ -19,8 +20,9 @@ class SalahTime:
 	stime = SalahTime()
 	stime.get_all_times()
 	"""
+
 	def __init__(self):
-		super(SalahTime, self).__init__()
+		super().__init__()
 
 		self.check_changes_flag = True
 		# Indexes where the data is
@@ -58,13 +60,12 @@ class SalahTime:
 		# Call it with threading to check month change.
 
 		# month = self.current_date.strftime("%B")
-		
+
 		# Opening current month data and today's timmings.
 		with shelve.open(f"Times/{self.month}") as db:
 			self._today_data = db[str(self.current_date.day)]
 
 	def _get_current_time(self) -> datetime.time:
-
 		# current_time = datetime.time(22, 0, 32, 452845)
 
 		current_time = datetime.datetime.today().time()
@@ -72,7 +73,6 @@ class SalahTime:
 		return current_time
 
 	def _get_current_date(self) -> datetime.date:
-
 		# current_date = datetime.datetime(2023, 9, 30)
 
 		current_date = datetime.datetime.today().date()
@@ -84,32 +84,30 @@ class SalahTime:
 		return month
 
 	def _get_salah_time(self) -> datetime.time:
-
 		salah_times = (
-		self._today_data[self._FAJIR],
-		self._today_data[self._TULU],
-		self._today_data[self._ZUHUR],
-		self._today_data[self._ASAR],
-		self._today_data[self._MAGHRIB],
-		self._today_data[self._ISHA]
-			)
+			self._today_data[self._FAJIR],
+			self._today_data[self._TULU],
+			self._today_data[self._ZUHUR],
+			self._today_data[self._ASAR],
+			self._today_data[self._MAGHRIB],
+			self._today_data[self._ISHA],
+		)
 
 		salah_time = None
 		for n_time in salah_times:
 			if n_time > self.current_time:
 				salah_time = n_time
 				break
-		
-		if salah_time is None:
 
+		if salah_time is None:
 			try:
 				with shelve.open(f"Times/{self.month}") as db:
 					next_day_data = db[str(self.current_date.day + 1)]
 
 				salah_time = next_day_data[self._FAJIR]
 
-			except KeyError: # Possible month change.
-				current_month_number = self.current_date.strftime("%m").replace('0', '')
+			except KeyError:  # Possible month change.
+				current_month_number = self.current_date.strftime("%m").replace("0", "")
 				next_month_name = self._number2month(int(current_month_number) + 1)
 
 				with shelve.open(f"Times/{next_month_name}") as db:
@@ -129,23 +127,23 @@ class SalahTime:
 		return display_time
 
 	def get_all_times(self) -> tuple:
-		
 		self._get_current_time()
 		current_salah_time = self._get_salah_time()
 		current_salah_time = self._time2display(current_salah_time)
 		current_time = self._time2display(self.current_time)
 		return (current_time, current_salah_time)
 
+
 if __name__ == "__main__":
 	stime = SalahTime()
-	thread = threading.Thread(target = stime.check_changes)
+	thread = threading.Thread(target=stime.check_changes)
 	thread.start()
 
 	while True:
 		try:
 			e = stime.get_all_times()
-			print(e, end = "\r")
-			timelib.sleep(.3)
+			print(e, end="\r")
+			timelib.sleep(0.3)
 		except KeyboardInterrupt:
 			# Stopping thread
 			stime.check_changes_flag = False
