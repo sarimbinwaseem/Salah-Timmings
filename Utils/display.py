@@ -57,29 +57,27 @@ class Display:
 		# Create blank image for drawing.
 		# Make sure to create image with mode '1' for 1-bit color.
 
-		image = Image.new("1", (width, height))
+		self.IMAGE = Image.new("1", (width, height))
 
-		return image
 
-	def get_draw(self, image: Image.Image) -> ImageDraw.ImageDraw:
+	def create_draw(self) -> ImageDraw.ImageDraw:
 		# rawing object to draw on image.
-		draw = ImageDraw.Draw(image)
+		self.DRAW = ImageDraw.Draw(self.IMAGE)
 
-		return draw
 
-	def draw_rectangle(self, draw: ImageDraw.ImageDraw):
+	def draw_rectangle(self):
 		width, height = self.get_disp_dimensions()
 
 		# Draw a black filled box to clear the image.
-		draw.rectangle((0, 0, width, height), outline=0, fill=0)
+		self.DRAW.rectangle((0, 0, width, height), outline=2, fill=1)
 
-	def create_image(self, draw: ImageDraw.ImageDraw, current_time, next_salah_time) -> None:
-		draw.text((self.X, self.TOP), current_time, font=self.font, fill=255)
+	def create_image(self, current_time, next_salah_time) -> None:
+		self.DRAW.text((self.X, self.TOP), current_time, font=self.font, fill=255)
 
-		draw.text((self.X, self.TOP + 28), next_salah_time, font=self.font, fill=255)
+		self.DRAW.text((self.X, self.TOP + 28), next_salah_time, font=self.font, fill=255)
 
-	def display_image(self, image: Image.Image) -> None:
-		self.disp.image(image)
+	def display_image(self) -> None:
+		self.disp.image(self.IMAGE)
 		self.disp.display()
 
 	def clear(self) -> None:

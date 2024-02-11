@@ -14,10 +14,10 @@ def display_loop(*args):
 	### Getting data and displaying times.
 	stime = args[1]
 	display = args[2]
-	draw = args[3]
+
 	for _ in range(13):
 		current_time, next_salah_time = stime.get_all_times()
-		display.create_image(draw, current_time, next_salah_time)
+		display.create_image(current_time, next_salah_time)
 
 		# Display image.
 		display.display_image()
@@ -37,12 +37,14 @@ def main():
 		if res == -1:
 			print("[-] Display module may not be connected.")
 		display.set_image_support()
-		image = display.create_blank_image()
-		draw = display.get_draw(image)
-		display.draw_rectangle(draw)
+		display.create_blank_image()
+		display.create_draw()
+		display.draw_rectangle()
+		timelib.sleep(2)
+		display.clear()
 
 		# hard will be used later
-		hard = Hardware(display_loop, stime, display, draw)
+		hard = Hardware(display_loop, stime, display)
 		print("[+] Objects initialized...")
 
 		try:
