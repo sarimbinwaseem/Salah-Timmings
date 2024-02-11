@@ -69,7 +69,7 @@ class Display:
 		width, height = self.get_disp_dimensions()
 
 		# Draw a black filled box to clear the image.
-		self.DRAW.rectangle((0, 0, width, height), outline=2, fill=1)
+		self.DRAW.rectangle((0, 0, width, height), outline=0, fill=0)
 
 	def create_image(self, current_time, next_salah_time) -> None:
 		self.DRAW.text((self.X, self.TOP), current_time, font=self.font, fill=255)
