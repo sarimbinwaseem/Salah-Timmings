@@ -48,7 +48,7 @@ def main():
 		print("[+] Objects initialized...")
 
 		try:
-			display.display_image(image)
+			display.display_image()
 		except OSError:
 			print("[-] Display module may not be connected.")
 			# print("[-] Exiting...!")
