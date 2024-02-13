@@ -59,7 +59,7 @@ class Display:
 		"""Getting the dimensions of the display and
 		setting the margins."""
 
-		_, height = self.get_disp_dimensions()
+		self.WIDTH, self.HEIGHT = self.get_disp_dimensions()
 
 		# First define some constants to allow easy resizing of shapes.
 		self.PADDING = 3
@@ -104,8 +104,8 @@ class Display:
 	def create_image(self, image_path: str) -> None:
 		"""Create displayable image from actual image."""
 
-		self.IMAGE = Image.open(image_path).resize((self.WIDTH, self.HEIGHT), Image.ANTIALIAS).convert('1')
-	
+		self.IMAGE = Image.open(image_path).resize((self.WIDTH, self.HEIGHT), Image.Resampling.LANCZOS).convert('1')
+
 	def display_image(self) -> None:
 		"""Display the created image."""
 
