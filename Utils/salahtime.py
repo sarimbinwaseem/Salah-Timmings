@@ -60,21 +60,23 @@ class SalahTime:
 			self.check_changes_flag = False
 
 	def _get_today_data(self) -> None:
-		# Call it with threading to check month change.
 
+		FLAG = True
 		# Opening current month data and today's timmings.
 		try:
 			with shelve.open(f"Times/{self.month}") as db:
 				self._today_data = db[str(self.current_date.day)]
-		except:
+		except FileNotFoundError:
 			print(f"[-] Time/{self.month} not found!")
 			while FLAG:
 				print(f"[!] Trying again to open Time/{self.month}.")
-
-				with shelve.open(f"Times/{self.month}") as db:
-					self._today_data = db[str(self.current_date.day)]
-
-				timelib.sleep(0.4)
+				try:
+					with shelve.open(f"Times/{self.month}") as db:
+						self._today_data = db[str(self.current_date.day)]
+				except FileNotFoundError:
+					timelib.sleep(0.4)
+				else:
+					FLAG = False
 
 	def _get_current_time(self) -> datetime.time:
 
@@ -140,6 +142,8 @@ class SalahTime:
 		return display_time
 
 	def get_all_times(self) -> tuple:
+		"""Return current_time and current salah's ending time."""
+
 		self._get_current_time()
 		current_salah_time = self._get_salah_time()
 		current_salah_time = self._time2display(current_salah_time)
