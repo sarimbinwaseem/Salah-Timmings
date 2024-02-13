@@ -27,6 +27,8 @@ class Hardware:
 		)
 
 	def buzz(self, iterations: int) -> None:
+		"""Buzz the buzzer one or more times."""
+
 		if iterations == 1:
 			GPIO.output(self._BUZZER, GPIO.HIGH)
 			time.sleep(1)

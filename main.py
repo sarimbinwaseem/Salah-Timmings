@@ -1,4 +1,17 @@
-"""Main entry of the system"""
+"""
+This project is made by Sarim Bin Waseem
+github.com/sarimbinwaseem
+
+What is this?
+A program to show "current time" and "current salah's ending time"
+on a SSD1306 display when a physical button attached to
+raspberry pi is pressed. 
+
+It also has a systemd service file so this program can start
+at the boot of the system.
+
+sudo systemctl enable salah_timings.service
+"""
 
 import sys
 import threading

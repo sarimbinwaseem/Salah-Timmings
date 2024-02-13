@@ -1,0 +1,24 @@
+[Unit]
+
+# Description
+Description= Displays current time and ending of current salah time on SSD 1306 display.
+
+[Service]
+
+# Which user to run from.
+User=pi
+
+# We assume the full service as active one the script was started
+Type=simple
+
+# Where to find the executable.
+ExecStart=/home/pi/Salah-Timmings/starter.sh
+
+# What you want: make sure it always is running
+Restart=always
+# Restart delay.
+RestartSec=40
+[Install]
+# Which service wants this to run - default.target is just it is loaded by default
+WantedBy=default.target
+
