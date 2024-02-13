@@ -21,12 +21,20 @@ class Display:
 		self.disp = Adafruit_SSD1306.SSD1306_128_64(rst=None)
 		self.X = 0
 
+		self.PADDING = None
+		self.TOP = None
+		self.BOTTOM = None
+		self.IMAGE = None
+		self.DRAW = None
+
 		try:
 			self.font = ImageFont.truetype("Fonts/TheImpostor.ttf", 20)
 		except FileNotFoundError:
 			self.font = ImageFont.load_default()
 
 	def get_disp_dimensions(self) -> tuple:
+		"""Returns connected display's dimension"""
+
 		return (self.disp.width, self.disp.height)
 
 	def begin_display(self):

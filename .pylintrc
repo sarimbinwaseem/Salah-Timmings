@@ -1,2 +1,5 @@
 [FORMAT]
 indent-string=\t
+
+[MESSAGES CONTROL]
+disable=import-error, invalid-name
