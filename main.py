@@ -55,7 +55,7 @@ def main():
 		if res == -1:
 			print("[-] Display module may not be connected.")
 		display.set_image_support()
-		display.create_image("Images/image.jpg")
+		display.create_image("Images/image.png")
 		display.display_image()
 		timelib.sleep(13)
 		display.create_blank_image()
