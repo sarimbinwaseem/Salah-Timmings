@@ -34,6 +34,7 @@ def display_loop(*args):
 
 	for _ in range(13):
 		current_time, next_salah_time = stime.get_all_times()
+		display.draw_rectangle()
 		display.create_image(current_time, next_salah_time)
 
 		# Display image.
