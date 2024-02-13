@@ -10,7 +10,7 @@
 - [x] Simulate a month ending and observe behavior. I reckon some errors may occur at the end of the month.
 - [ ] Confirm and correct the timmings.
 - [ ] 3rd info to show: Remaining time to next Salah.
-- [ ] Add a physical momentary button to display for 5 seconds then turn off the display (to avoid burn-in).
+- [x] Add a physical momentary button to display for 5 seconds then turn off the display (to avoid burn-in).
 
 ### Pinouts and connections:
  I have a SSD1306 display with 4 pins:
