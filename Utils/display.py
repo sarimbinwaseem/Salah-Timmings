@@ -93,7 +93,7 @@ class Display:
 		# Draw a black filled box to clear the image.
 		self.DRAW.rectangle((0, 0, width, height), outline=0, fill=0)
 
-	def create_image(self, current_time, next_salah_time) -> None:
+	def create_time_image(self, current_time, next_salah_time) -> None:
 		"""Creating image of timings to show."""
 
 
@@ -101,6 +101,11 @@ class Display:
 
 		self.DRAW.text((self.X, self.TOP + 28), next_salah_time, font=self.FONT, fill=255)
 
+	def create_image(self, image_path: str) -> None:
+		"""Create displayable image from actual image."""
+
+		self.IMAGE = Image.open(image_path).resize((self.WIDTH, self.HEIGHT), Image.ANTIALIAS).convert('1')
+	
 	def display_image(self) -> None:
 		"""Display the created image."""
 
