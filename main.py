@@ -5,11 +5,15 @@ github.com/sarimbinwaseem
 What is this?
 A program to show "current time" and "current salah's ending time"
 on a SSD1306 display when a physical button attached to
-raspberry pi is pressed. 
+raspberry pi is pressed.
+
+Next:
+1. To add a buzzer sound when the time ends.
 
 It also has a systemd service file so this program can start
 at the boot of the system.
 
+sudo cp salah_timings.service /etc/systemd/system/
 sudo systemctl enable salah_timings.service
 """
 
