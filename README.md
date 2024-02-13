@@ -56,6 +56,15 @@ sudo python main.py
 > If you are getting shelve library error, try upgrading to newer Python version. I have tried on 3.11.3 & 3.11.4. You can try this [website](https://www.build-python-from-source.com/) for alternate install of Python: 
 
 
+## Autostart with systemd:
+
+1. Modify the user and ExecStart (and other if needed) in salah_timings.service file.
+2. Copy this file to ```/etc/systemd/system/``` 
+3. Enable the service to let it start on boot.
+```
+sudo systemctl enable salah_timmings.service
+```
+
 ## Conclusion:
 
 ~~Unfortunately, My SSD1306 display is broken. i2cdetect is not detecting it so, I cannot work on this project further.~~
