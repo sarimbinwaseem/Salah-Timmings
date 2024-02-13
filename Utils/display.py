@@ -64,7 +64,7 @@ class Display:
 		# First define some constants to allow easy resizing of shapes.
 		self.PADDING = 3
 		self.TOP = self.PADDING
-		self.BOTTOM = height - self.PADDING
+		self.BOTTOM = self.HEIGHT - self.PADDING
 		# Move left to right keeping track of the current x position for drawing shapes.
 		self.X = 0
 
@@ -104,7 +104,7 @@ class Display:
 	def create_image(self, image_path: str) -> None:
 		"""Create displayable image from actual image."""
 		width, height = self.get_disp_dimensions()
-		self.IMAGE = Image.open(image_path).resize((64, 64), Image.Resampling.LANCZOS).convert('1')
+		self.IMAGE = Image.open(image_path).resize((width, height), Image.Resampling.LANCZOS).convert('1')
 
 	def display_image(self) -> None:
 		"""Display the created image."""

@@ -60,7 +60,7 @@ def main():
 		display.draw_rectangle()
 		display.create_image("Images/image.jpg")
 		display.display_image()
-		timelib.sleep(2)
+		timelib.sleep(13)
 		display.clear()
 
 		# hard will be used later
