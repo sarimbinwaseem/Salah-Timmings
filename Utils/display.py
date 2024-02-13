@@ -30,6 +30,8 @@ class Display:
 		return (self.disp.width, self.disp.height)
 
 	def begin_display(self):
+		"""Initializing the display object."""
+
 		try:
 			self.disp.begin()
 		except OSError:
@@ -43,6 +45,9 @@ class Display:
 		return 0
 
 	def set_image_support(self):
+		"""Getting the dimensions of the display and
+		setting the margins."""
+
 		_, height = self.get_disp_dimensions()
 
 		# First define some constants to allow easy resizing of shapes.
@@ -53,6 +58,8 @@ class Display:
 		self.X = 0
 
 	def create_blank_image(self) -> Image.Image:
+		"""Create blank image to draw the timings on."""
+
 		width, height = self.get_disp_dimensions()
 		# Create blank image for drawing.
 		# Make sure to create image with mode '1' for 1-bit color.
@@ -61,25 +68,37 @@ class Display:
 
 
 	def create_draw(self) -> ImageDraw.ImageDraw:
+		"""Create draw object to draw timings on image."""
+
 		# rawing object to draw on image.
 		self.DRAW = ImageDraw.Draw(self.IMAGE)
 
 
 	def draw_rectangle(self):
+		"""Drawing black i.e. 0 fill rectangle to get display started."""
+
 		width, height = self.get_disp_dimensions()
 
 		# Draw a black filled box to clear the image.
 		self.DRAW.rectangle((0, 0, width, height), outline=0, fill=0)
 
 	def create_image(self, current_time, next_salah_time) -> None:
+		"""Creating image of timings to show."""
+
+
 		self.DRAW.text((self.X, self.TOP), current_time, font=self.font, fill=255)
 
 		self.DRAW.text((self.X, self.TOP + 28), next_salah_time, font=self.font, fill=255)
 
 	def display_image(self) -> None:
+		"""Display the created image."""
+
+
 		self.disp.image(self.IMAGE)
 		self.disp.display()
 
 	def clear(self) -> None:
+		"""Clear the display."""
+
 		self.disp.clear()
 		self.disp.display()
