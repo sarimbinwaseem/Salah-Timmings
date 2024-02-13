@@ -55,12 +55,12 @@ def main():
 		if res == -1:
 			print("[-] Display module may not be connected.")
 		display.set_image_support()
-		display.create_blank_image()
 		display.create_draw()
 		display.draw_rectangle()
 		display.create_image("Images/image.jpg")
 		display.display_image()
 		timelib.sleep(13)
+		display.create_blank_image()
 		display.clear()
 
 		# hard will be used later
