@@ -15,7 +15,6 @@ class Hardware:
 		GPIO.setmode(GPIO.BCM)
 		self._BUZZER = 25
 		self._BUTTON = 24
-		self._FLAG = True
 
 		GPIO.setup(self._BUZZER, GPIO.OUT)
 		GPIO.output(self._BUZZER, GPIO.LOW)

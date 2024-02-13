@@ -62,14 +62,24 @@ class SalahTime:
 	def _get_today_data(self) -> None:
 		# Call it with threading to check month change.
 
-		# month = self.current_date.strftime("%B")
-
 		# Opening current month data and today's timmings.
-		with shelve.open(f"Times/{self.month}") as db:
-			self._today_data = db[str(self.current_date.day)]
+		try:
+			with shelve.open(f"Times/{self.month}") as db:
+				self._today_data = db[str(self.current_date.day)]
+		except:
+			print(f"[-] Time/{self.month} not found!")
+			while FLAG:
+				print(f"[!] Trying again to open Time/{self.month}.")
+
+				with shelve.open(f"Times/{self.month}") as db:
+					self._today_data = db[str(self.current_date.day)]
+
+				timelib.sleep(0.4)
 
 	def _get_current_time(self) -> datetime.time:
-		# current_time = datetime.time(22, 0, 32, 452845)
+
+		"""returning and saving current time.
+		Should not be called separetely"""
 
 		current_time = datetime.datetime.today().time()
 		self.current_time = current_time
