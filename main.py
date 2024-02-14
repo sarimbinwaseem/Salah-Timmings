@@ -9,6 +9,7 @@ raspberry pi is pressed.
 
 Next:
 1. To add a buzzer sound when the time ends.
+2. Implement "signal" to exit gracefully.
 
 It also has a systemd service file so this program can start
 at the boot of the system.
@@ -54,10 +55,14 @@ def main():
 		res = display.begin_display()
 		if res == -1:
 			print("[-] Display module may not be connected.")
+			print("[-] Exiting...!")
+			sys.exit(1)
+
 		display.set_image_support()
 		display.create_image("Images/image.png")
 		display.display_image()
-		timelib.sleep(13)
+		timelib.sleep(3)
+
 		display.create_blank_image()
 		display.create_draw()
 		display.draw_rectangle()
@@ -66,13 +71,6 @@ def main():
 		# hard will be used later
 		hard = Hardware(display_loop, stime, display)
 		print("[+] Objects initialized...")
-
-		try:
-			display.display_image()
-		except OSError:
-			print("[-] Display module may not be connected.")
-			# print("[-] Exiting...!")
-			# sys.exit()
 
 		# Program is in loop and stuck because of this thread.
 		# Ending this thread will exit the program.

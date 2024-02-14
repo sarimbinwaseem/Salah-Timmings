@@ -12,33 +12,24 @@ class Display:
 
 	def __init__(self):
 		super().__init__()
-		self.RST = None
 
-		# Note the following are only used with SPI:
-		self.DC: int = 23
-		self.SPI_PORT: int = 0
-		self.SPI_DEVICE: int = 0
 		self.disp = Adafruit_SSD1306.SSD1306_128_64(rst=None)
+		
 		self.X: int = 0
-
-		self.PADDING: int = None
-		self.TOP: int = None
-		self.BOTTOM: int = None
+		self.PADDING: int = 0
+		self.TOP: int = 0
+		self.BOTTOM: int = 0
 		self.IMAGE = None
 		self.DRAW = None
 
-		self.WIDTH: int = None
-		self.HEIGHT: int = None
+		self.WIDTH: int = 0
+		self.HEIGHT: int = 0
 
 		try:
 			self.FONT = ImageFont.truetype("Fonts/TheImpostor.ttf", 20)
 		except FileNotFoundError:
 			self.FONT = ImageFont.load_default()
 
-	def get_disp_dimensions(self) -> tuple:
-		"""Returns connected display's dimension"""
-
-		return (self.disp.width, self.disp.height)
 
 	def begin_display(self):
 		"""Initializing the display object."""
@@ -55,6 +46,13 @@ class Display:
 
 		return 0
 
+
+	def get_disp_dimensions(self) -> tuple:
+		"""Returns connected display's dimension"""
+
+		return (self.disp.width, self.disp.height)
+
+
 	def set_image_support(self):
 		"""Getting the dimensions of the display and
 		setting the margins."""
@@ -65,17 +63,17 @@ class Display:
 		self.PADDING = 3
 		self.TOP = self.PADDING
 		self.BOTTOM = self.HEIGHT - self.PADDING
-		# Move left to right keeping track of the current x position for drawing shapes.
+		# Move left to right keeping track of the current x position
+		# for drawing shapes.
 		self.X = 0
 
 	def create_blank_image(self) -> Image.Image:
 		"""Create blank image to draw the timings on."""
 
-		width, height = self.get_disp_dimensions()
 		# Create blank image for drawing.
 		# Make sure to create image with mode '1' for 1-bit color.
 
-		self.IMAGE = Image.new("1", (width, height))
+		self.IMAGE = Image.new("1", (self.WIDTH, self.HEIGHT))
 
 
 	def create_draw(self) -> ImageDraw.ImageDraw:
@@ -103,8 +101,8 @@ class Display:
 
 	def create_image(self, image_path: str) -> None:
 		"""Create displayable image from actual image."""
-		width, height = self.get_disp_dimensions()
-		self.IMAGE = Image.open(image_path).resize((width, height), Image.Resampling.LANCZOS).convert('1')
+
+		self.IMAGE = Image.open(image_path).resize((self.WIDTH, self.HEIGHT), Image.Resampling.LANCZOS).convert('1')
 
 	def display_image(self) -> None:
 		"""Display the created image."""
