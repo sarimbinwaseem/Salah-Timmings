@@ -79,7 +79,7 @@ class Display:
 	def create_draw(self) -> ImageDraw.ImageDraw:
 		"""Create draw object to draw timings on image."""
 
-		# rawing object to draw on image.
+		# Draw object to draw on image.
 		self.DRAW = ImageDraw.Draw(self.IMAGE)
 
 
@@ -91,7 +91,7 @@ class Display:
 		# Draw a black filled box to clear the image.
 		self.DRAW.rectangle((0, 0, width, height), outline=0, fill=0)
 
-	def create_time_image(self, current_time, next_salah_time) -> None:
+	def draw_time_image(self, current_time, next_salah_time) -> None:
 		"""Creating image of timings to show."""
 
 
