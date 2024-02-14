@@ -7,6 +7,8 @@
 import openpyxl
 import shelve
 
+month = "April"
+
 with shelve.open(f"../Times/{month}") as db:
 		
 		# for row in sheet.iter_rows(values_only = True):
