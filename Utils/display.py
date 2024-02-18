@@ -27,7 +27,7 @@ class Display:
 		self.HEIGHT: int = 0
 
 		try:
-			self.FONT = self.get_font("old_stamper")
+			self.FONT = self.get_font("Righteous-Regular")
 		except FileNotFoundError as e:
 			print(e)
 			self.FONT = ImageFont.load_default()
@@ -37,12 +37,12 @@ class Display:
 
 		name = name.replace(".ttf", "")
 
-		with open("../Fonts/fontsandsizes.json", 'r') as file:
+		with open("Fonts/fontsandsizes.json", 'r') as file:
 			fonts = json.loads(file.read())
 
 		print()
 		font_size = fonts[name]
-		font = ImageFont.truetype(f"../Fonts/{name}.ttf", font_size)
+		font = ImageFont.truetype(f"Fonts/{name}.ttf", font_size)
 
 		return font
 
