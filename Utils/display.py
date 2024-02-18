@@ -1,6 +1,6 @@
 """Display module"""
 
-# import Adafruit_SSD1306
+import Adafruit_SSD1306
 
 from PIL import Image
 from PIL import ImageDraw
@@ -14,7 +14,7 @@ class Display:
 	def __init__(self):
 		super().__init__()
 
-		# self.disp = Adafruit_SSD1306.SSD1306_128_64(rst=None)
+		self.disp = Adafruit_SSD1306.SSD1306_128_64(rst=None)
 
 		self.X: int = 0
 		self.PADDING: int = 0
@@ -40,6 +40,7 @@ class Display:
 		with open("../Fonts/fontsandsizes.json", 'r') as file:
 			fonts = json.loads(file.read())
 
+		print()
 		font_size = fonts[name]
 		font = ImageFont.truetype(f"../Fonts/{name}.ttf", font_size)
 
