@@ -1,6 +1,6 @@
 """Display module"""
 
-import Adafruit_SSD1306
+# import Adafruit_SSD1306
 
 from PIL import Image
 from PIL import ImageDraw
@@ -14,7 +14,7 @@ class Display:
 	def __init__(self):
 		super().__init__()
 
-		self.disp = Adafruit_SSD1306.SSD1306_128_64(rst=None)
+		# self.disp = Adafruit_SSD1306.SSD1306_128_64(rst=None)
 		
 		self.X: int = 0
 		self.PADDING: int = 0
@@ -27,7 +27,7 @@ class Display:
 		self.HEIGHT: int = 0
 
 		try:
-			self.FONT = self.get_font("old_stamper")
+			self.FONT = self.get_font("TheImpostor")
 		except FileNotFoundError:
 			self.FONT = ImageFont.load_default()
 
@@ -130,3 +130,7 @@ class Display:
 
 		self.disp.clear()
 		self.disp.display()
+
+if __name__ == '__main__':
+	dis = Display()
+	print(dis.FONT.font.family)
