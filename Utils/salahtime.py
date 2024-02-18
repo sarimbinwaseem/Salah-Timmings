@@ -67,9 +67,9 @@ class SalahTime:
 			with shelve.open(f"Times/{self.month}") as db:
 				self._today_data = db[str(self.current_date.day)]
 		except FileNotFoundError:
-			print(f"[-] Time/{self.month} not found!")
+			print(f"[-] Times/{self.month} not found!")
 			while FLAG:
-				print(f"[!] Trying again to open Time/{self.month}.")
+				print(f"[!] Trying again to open Times/{self.month}.")
 				try:
 					with shelve.open(f"Times/{self.month}") as db:
 						self._today_data = db[str(self.current_date.day)]
