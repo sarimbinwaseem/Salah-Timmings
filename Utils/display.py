@@ -116,11 +116,12 @@ class Display:
 	def create_image(self, image_path: str) -> None:
 		"""Create displayable image from actual image."""
 
-		self.IMAGE = Image.open(image_path).resize((self.WIDTH, self.HEIGHT), Image.Resampling.LANCZOS).convert('1')
+		self.IMAGE = Image.open(image_path).resize(
+				(self.WIDTH, self.HEIGHT), Image.Resampling.LANCZOS
+			).convert('1')
 
 	def display_image(self) -> None:
 		"""Display the created image."""
-
 
 		self.disp.image(self.IMAGE)
 		self.disp.display()
