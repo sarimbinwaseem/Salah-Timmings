@@ -1,6 +1,6 @@
 """Display module"""
 
-# import Adafruit_SSD1306
+import Adafruit_SSD1306
 
 from PIL import Image
 from PIL import ImageDraw
@@ -14,7 +14,7 @@ class Display:
 	def __init__(self):
 		super().__init__()
 
-		# self.disp = Adafruit_SSD1306.SSD1306_128_64(rst=None)
+		self.disp = Adafruit_SSD1306.SSD1306_128_64(rst=None)
 		
 		self.X: int = 0
 		self.PADDING: int = 0
