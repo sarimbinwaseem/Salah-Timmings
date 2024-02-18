@@ -5,6 +5,7 @@ import Adafruit_SSD1306
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
+import json
 
 
 class Display:
@@ -26,9 +27,22 @@ class Display:
 		self.HEIGHT: int = 0
 
 		try:
-			self.FONT = ImageFont.truetype("Fonts/TheImpostor.ttf", 20)
+			self.FONT = self.get_font("old_stamper")
 		except FileNotFoundError:
 			self.FONT = ImageFont.load_default()
+
+	def get_font(self, name: str) -> ImageFont.FreeTypeFont:
+		"""returns font object for display."""
+
+		name = name.replace(".ttf", "")
+
+		with open("fontsandsizes.json", 'r') as file:
+			fonts = json.loads(file.read())
+
+		font_size = fonts[name]
+		font = ImageFont.truetype(f"Fonts/{name}.ttf", font_size)
+
+		return font
 
 
 	def begin_display(self):
