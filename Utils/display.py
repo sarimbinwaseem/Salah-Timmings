@@ -36,11 +36,11 @@ class Display:
 
 		name = name.replace(".ttf", "")
 
-		with open("fontsandsizes.json", 'r') as file:
+		with open("../Fonts/fontsandsizes.json", 'r') as file:
 			fonts = json.loads(file.read())
 
-		font_size = fonts[name]
-		font = ImageFont.truetype(f"Fonts/{name}.ttf", font_size)
+		font_size = fonts[f"{name}.ttf"]
+		font = ImageFont.truetype(f"../Fonts/{name}.ttf", font_size)
 
 		return font
 
