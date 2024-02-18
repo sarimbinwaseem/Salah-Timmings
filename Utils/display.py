@@ -1,6 +1,6 @@
 """Display module"""
 
-import Adafruit_SSD1306
+# import Adafruit_SSD1306
 
 from PIL import Image
 from PIL import ImageDraw
@@ -14,8 +14,8 @@ class Display:
 	def __init__(self):
 		super().__init__()
 
-		self.disp = Adafruit_SSD1306.SSD1306_128_64(rst=None)
-		
+		# self.disp = Adafruit_SSD1306.SSD1306_128_64(rst=None)
+
 		self.X: int = 0
 		self.PADDING: int = 0
 		self.TOP: int = 0
@@ -27,8 +27,9 @@ class Display:
 		self.HEIGHT: int = 0
 
 		try:
-			self.FONT = self.get_font("TheImpostor")
-		except FileNotFoundError:
+			self.FONT = self.get_font("old_stamper")
+		except FileNotFoundError as e:
+			print(e)
 			self.FONT = ImageFont.load_default()
 
 	def get_font(self, name: str) -> ImageFont.FreeTypeFont:
@@ -36,11 +37,11 @@ class Display:
 
 		name = name.replace(".ttf", "")
 
-		with open("Fonts/fontsandsizes.json", 'r') as file:
+		with open("../Fonts/fontsandsizes.json", 'r') as file:
 			fonts = json.loads(file.read())
 
-		font_size = fonts[f"{name}.ttf"]
-		font = ImageFont.truetype(f"Fonts/{name}.ttf", font_size)
+		font_size = fonts[name]
+		font = ImageFont.truetype(f"../Fonts/{name}.ttf", font_size)
 
 		return font
 
