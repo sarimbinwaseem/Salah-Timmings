@@ -26,7 +26,7 @@ class SalahTime:
 
 		self.check_changes_flag = True
 		# Indexes where the data is
-		self._FAJIR = 2
+		self._FAJAR = 2
 		self._TULU = 3
 		self._ZUHUR = 5
 		self._ASAR = 6
@@ -100,7 +100,7 @@ class SalahTime:
 
 	def _get_salah_time(self) -> datetime.time:
 		salah_times = (
-			self._today_data[self._FAJIR],
+			self._today_data[self._FAJAR],
 			self._today_data[self._TULU],
 			self._today_data[self._ZUHUR],
 			self._today_data[self._ASAR],
@@ -119,7 +119,7 @@ class SalahTime:
 				with shelve.open(f"Times/{self.month}") as db:
 					next_day_data = db[str(self.current_date.day + 1)]
 
-				salah_time = next_day_data[self._FAJIR]
+				salah_time = next_day_data[self._FAJAR]
 
 			except KeyError:  # Possible month change.
 				current_month_number = self.current_date.strftime("%m").replace("0", "")
@@ -128,7 +128,7 @@ class SalahTime:
 				with shelve.open(f"Times/{next_month_name}") as db:
 					next_day_data = db[str(1)]
 
-				salah_time = next_day_data[self._FAJIR]
+				salah_time = next_day_data[self._FAJAR]
 
 		return salah_time
 
