@@ -19,6 +19,7 @@ sudo systemctl enable salah_timings.service
 """
 
 import sys
+from multiprocessing import Pipe
 import threading
 import time as timelib
 
@@ -73,15 +74,26 @@ def main():
 		print("[+] Objects initialized...")
 
 		# Program is in loop and stuck because of this thread.
-		# Ending this thread will exit the program.
-		thread = threading.Thread(target=stime.check_changes)
+		# Ending this thread will exit the program. (May not be now)
+		thread = threading.Thread(target=stime.check_date_changes)
 		thread.start()
 		print("[+] Check for the time change has been started.")
+
+		# Making Pipe to communicate.
+		recv_conn, send_conn = Pipe()
+
+		while True:
+			if recv_conn.recv() == 1:
+				hard.buzz(1)
+			elif recv_conn.recv() == 3:
+				hard.buzz(3)
+
+			timelib.sleep(.9)
 
 	except KeyboardInterrupt:
 		print("[-] Exiting...!")
 		# display.clear()
-		stime.check_changes_flag = False
+		stime.check_date_changes_flag = False
 		thread.join()
 		sys.exit()
 

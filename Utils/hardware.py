@@ -31,11 +31,11 @@ class Hardware:
 
 		if iterations == 1:
 			GPIO.output(self._BUZZER, GPIO.HIGH)
-			time.sleep(1)
+			time.sleep(3)
 			GPIO.output(self._BUZZER, GPIO.LOW)
 
 		for _ in range(iterations):
 			GPIO.output(self._BUZZER, GPIO.HIGH)
-			time.sleep(1)
+			time.sleep()
 			GPIO.output(self._BUZZER, GPIO.LOW)
 			time.sleep(1)
