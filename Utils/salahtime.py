@@ -1,7 +1,7 @@
 """Salah Timmings module"""
 
 import sys
-import time as timelib
+from time import strftime, strptime, sleep
 import datetime
 import shelve
 import threading
@@ -55,7 +55,7 @@ class SalahTime:
 					self._get_today_data()
 					self._backup_month = self.month
 
-				timelib.sleep(1)
+				sleep(1)
 		except KeyboardInterrupt:
 			self.check_changes_flag = False
 
@@ -74,7 +74,7 @@ class SalahTime:
 					with shelve.open(f"Times/{self.month}") as db:
 						self._today_data = db[str(self.current_date.day)]
 				except FileNotFoundError:
-					timelib.sleep(0.4)
+					sleep(0.4)
 				else:
 					FLAG = False
 
@@ -137,8 +137,8 @@ class SalahTime:
 
 	def _time2display(self, the_time: datetime.time) -> str:
 		the_time = str(the_time)[:5]
-		t = timelib.strptime(the_time, "%H:%M")
-		display_time = timelib.strftime("%I:%M %p", t)
+		t = strptime(the_time, "%H:%M")
+		display_time = strftime("%I:%M %p", t)
 		return display_time
 
 	def get_all_times(self) -> tuple:
@@ -160,7 +160,7 @@ if __name__ == "__main__":
 		try:
 			e = stime.get_all_times()
 			print(e, end="\r")
-			timelib.sleep(0.3)
+			sleep(0.3)
 		except KeyboardInterrupt:
 			# Stopping thread
 			stime.check_changes_flag = False
