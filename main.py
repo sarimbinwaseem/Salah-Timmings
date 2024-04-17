@@ -75,7 +75,7 @@ def main():
 
 		# Program is in loop and stuck because of this thread.
 		# Ending this thread will exit the program. (May not be now)
-		thread = threading.Thread(target=stime.check_date_changes)
+		thread = threading.Thread(target=stime.check_changes)
 		thread.start()
 		print("[+] Check for the time change has been started.")
 
