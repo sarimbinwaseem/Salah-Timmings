@@ -21,10 +21,12 @@ class SalahTime:
 	stime.get_all_times()
 	"""
 
-	def __init__(self):
+	def __init__(self, send_conn):
 		super().__init__()
-
+		
+		self.send_conn = send_conn
 		self.check_changes_flag = True
+		self.check_change_of_salah_flag = True
 		# Indexes where the data is
 		self._FAJAR = 2
 		self._TULU = 3
@@ -40,6 +42,16 @@ class SalahTime:
 		self.date = self._backup_date = self.current_date.strftime("%d")
 
 		self._get_today_data()
+
+		self.curr_salah_time = self.curr_salah_time_backup = self._get_salah_time()
+
+	def check_change_of_salah(self):
+		"""Checks for Salah TIme change."""
+		while self.check_change_of_salah_flag:
+			curr_salah_time = self._get_salah_time()
+			if curr_salah_time != self.curr_salah_time_backup:
+				pass # implement this
+
 
 	def check_changes(self):
 		"""Check for month and date changes"""

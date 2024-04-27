@@ -51,7 +51,10 @@ def display_loop(*args):
 def main():
 	"""Main entry of the system"""
 	try:
-		stime = SalahTime()
+		# Making Pipe to communicate.
+		recv_conn, send_conn = Pipe()
+
+		stime = SalahTime(send_conn)
 		display = Display()
 		res = display.begin_display()
 		if res == -1:
@@ -78,9 +81,6 @@ def main():
 		thread = threading.Thread(target=stime.check_changes)
 		thread.start()
 		print("[+] Check for the time change has been started.")
-
-		# Making Pipe to communicate.
-		recv_conn, send_conn = Pipe()
 
 		while True:
 			if recv_conn.recv() == 1:
