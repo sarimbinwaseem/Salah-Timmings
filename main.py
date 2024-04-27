@@ -22,7 +22,6 @@ import sys
 from multiprocessing import Pipe
 import threading
 import time as timelib
-
 from Utils.salahtime import SalahTime
 from Utils.display import Display
 from Utils.hardware import Hardware
