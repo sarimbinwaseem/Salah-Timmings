@@ -81,10 +81,10 @@ def main():
         thread.start()
         print("[+] Check for the time change has been started.")
 
-        salah_change_buzz = threading.Thread(
-            target=stime.check_change_of_salah, daemon=True
-        )
-        salah_change_buzz.start()
+        # salah_change_buzz = threading.Thread(
+        #     target=stime.check_change_of_salah, daemon=True
+        # )
+        # salah_change_buzz.start()
 
         while True:
             if recv_conn.recv() == 1:
