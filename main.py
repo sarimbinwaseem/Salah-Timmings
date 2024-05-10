@@ -28,74 +28,79 @@ from Utils.hardware import Hardware
 
 
 def display_loop(*args):
-	"""display loop to show time on the screen"""
-	### Getting data and displaying times.
-	stime = args[1]
-	display = args[2]
+    """display loop to show time on the screen"""
+    ### Getting data and displaying times.
+    stime = args[1]
+    display = args[2]
 
-	for _ in range(13):
-		current_time, next_salah_time = stime.get_all_times()
-		display.draw_rectangle()
-		display.draw_time_image(current_time, next_salah_time)
+    for _ in range(13):
+        current_time, next_salah_time = stime.get_all_times()
+        display.draw_rectangle()
+        display.draw_time_image(current_time, next_salah_time)
 
-		# Display image.
-		display.display_image()
-		timelib.sleep(0.4)
+        # Display image.
+        display.display_image()
+        timelib.sleep(0.4)
 
-		print(current_time, next_salah_time)
+        print(current_time, next_salah_time)
 
-	display.clear()
+    display.clear()
 
 
 def main():
-	"""Main entry of the system"""
-	try:
-		# Making Pipe to communicate.
-		recv_conn, send_conn = Pipe()
+    """Main entry of the system"""
+    try:
+        # Making Pipe to communicate.
+        recv_conn, send_conn = Pipe()
 
-		stime = SalahTime(send_conn)
-		display = Display()
-		res = display.begin_display()
-		if res == -1:
-			print("[-] Display module may not be connected.")
-			print("[-] Exiting...!")
-			sys.exit(1)
+        stime = SalahTime(send_conn)
+        display = Display()
+        res = display.begin_display()
+        if res == -1:
+            print("[-] Display module may not be connected.")
+            print("[-] Exiting...!")
+            sys.exit(1)
 
-		display.set_image_support()
-		display.create_image("Images/image.png")
-		display.display_image()
-		timelib.sleep(3)
+        display.set_image_support()
+        display.create_image("Images/image.png")
+        display.display_image()
+        timelib.sleep(3)
 
-		display.create_blank_image()
-		display.create_draw()
-		display.draw_rectangle()
-		display.clear()
+        display.create_blank_image()
+        display.create_draw()
+        display.draw_rectangle()
+        display.clear()
 
-		# hard will be used later
-		hard = Hardware(display_loop, stime, display)
-		print("[+] Objects initialized...")
+        # hard will be used later
+        hard = Hardware(display_loop, stime, display)
+        print("[+] Objects initialized...")
 
-		# Program is in loop and stuck because of this thread.
-		# Ending this thread will exit the program. (May not be now)
-		thread = threading.Thread(target=stime.check_changes)
-		thread.start()
-		print("[+] Check for the time change has been started.")
+        # Program is in loop and stuck because of this thread.
+        # Ending this thread will exit the program. (May not be now)
+        thread = threading.Thread(target=stime.check_changes, daemon=True)
+        thread.start()
+        print("[+] Check for the time change has been started.")
 
-		while True:
-			if recv_conn.recv() == 1:
-				hard.buzz(1)
-			elif recv_conn.recv() == 3:
-				hard.buzz(3)
+        salah_change_buzz = threading.Thread(
+            target=stime.check_change_of_salah, daemon=True
+        )
+        salah_change_buzz.start()
 
-			timelib.sleep(.9)
+        while True:
+            if recv_conn.recv() == 1:
+                hard.buzz(1)
+            elif recv_conn.recv() == 3:
+                hard.buzz(3)
 
-	except KeyboardInterrupt:
-		print("[-] Exiting...!")
-		# display.clear()
-		stime.check_date_changes_flag = False
-		thread.join()
-		sys.exit()
+            timelib.sleep(0.9)
+
+    except KeyboardInterrupt:
+        print("[-] Exiting...!")
+        # display.clear()
+        stime.check_date_changes_flag = False
+        thread.join()
+        sys.exit()
 
 
 if __name__ == "__main__":
-	main()
+    main()

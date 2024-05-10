@@ -50,7 +50,8 @@ class SalahTime:
 		while self.check_change_of_salah_flag:
 			curr_salah_time = self._get_salah_time()
 			if curr_salah_time != self.curr_salah_time_backup:
-				pass # implement this
+				self.send_conn.send(3)
+				sleep(65)
 
 
 	def check_changes(self):
