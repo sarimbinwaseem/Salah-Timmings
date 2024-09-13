@@ -19,13 +19,13 @@ sudo systemctl enable salah_timings.service
 """
 
 import sys
-from multiprocessing import Pipe
 import threading
 import time as timelib
-from Utils.salahtime import SalahTime
+from multiprocessing import Pipe
+
 from Utils.display import Display
 from Utils.hardware import Hardware
-
+from Utils.salahtime import SalahTime
 
 def display_loop(*args):
     """display loop to show time on the screen"""
