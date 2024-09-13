@@ -21,7 +21,7 @@ class SalahTime:
 	stime.get_all_times()
 	"""
 
-	def __init__(self, send_conn):
+	def __init__(self, send_conn = None):
 		super().__init__()
 		
 		self.send_conn = send_conn
