@@ -50,6 +50,7 @@ class SalahTime:
 		while self.check_change_of_salah_flag:
 			curr_salah_time = self._get_salah_time()
 			if curr_salah_time != self.curr_salah_time_backup:
+				self.curr_salah_time_backup = curr_salah_time
 				self.send_conn.send(3)
 				sleep(65)
 

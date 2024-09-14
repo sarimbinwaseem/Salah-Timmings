@@ -81,10 +81,11 @@ def main():
         thread.start()
         print("[+] Check for the time change has been started.")
 
-        # salah_change_buzz = threading.Thread(
-        #     target=stime.check_change_of_salah, daemon=True
-        # )
-        # salah_change_buzz.start()
+        salah_change_buzz = threading.Thread(
+            target=stime.check_change_of_salah, daemon=True
+        )
+        salah_change_buzz.start()
+        print("[+] Buzzer .")
 
         while True:
             if recv_conn.recv() == 1:
@@ -98,6 +99,7 @@ def main():
         print("[-] Exiting...!")
         # display.clear()
         stime.check_date_changes_flag = False
+        stime.check_change_of_salah_flag = False
         thread.join()
         sys.exit()
 
