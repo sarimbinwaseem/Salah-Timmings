@@ -37,7 +37,7 @@ class Hardware:
 		else:
 			for _ in range(iterations):
 				GPIO.output(self._BUZZER, GPIO.HIGH)
-				time.sleep()
+				time.sleep(1)
 				GPIO.output(self._BUZZER, GPIO.LOW)
 				time.sleep(1)
 
