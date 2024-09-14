@@ -9,7 +9,7 @@ from RPi import GPIO
 class Hardware:
 	"""docstring for Hardware"""
 
-	def __init__(self, display_loop, stime, display):
+	def __init__(self, display_loop = None, stime = None, display = None):
 		super().__init__()
 
 		GPIO.setmode(GPIO.BCM)
@@ -34,8 +34,13 @@ class Hardware:
 			time.sleep(3)
 			GPIO.output(self._BUZZER, GPIO.LOW)
 
-		for _ in range(iterations):
-			GPIO.output(self._BUZZER, GPIO.HIGH)
-			time.sleep()
-			GPIO.output(self._BUZZER, GPIO.LOW)
-			time.sleep(1)
+		else:
+			for _ in range(iterations):
+				GPIO.output(self._BUZZER, GPIO.HIGH)
+				time.sleep()
+				GPIO.output(self._BUZZER, GPIO.LOW)
+				time.sleep(1)
+
+if __name__ == "__main__":
+	hard = Hardware()
+	hard.buzz(3)
