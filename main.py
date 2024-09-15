@@ -88,9 +88,10 @@ def main():
         print("[+] Buzzer .")
 
         while True:
-            if recv_conn.recv() == 1:
+            DATA = recv_conn.recv()
+            if DATA == 1:
                 hard.buzz(1)
-            elif recv_conn.recv() == 3:
+            elif DATA == 3:
                 hard.buzz(3)
 
             timelib.sleep(0.9)

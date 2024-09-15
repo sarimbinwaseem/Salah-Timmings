@@ -52,7 +52,7 @@ class SalahTime:
 			if curr_salah_time != self.curr_salah_time_backup:
 				self.curr_salah_time_backup = curr_salah_time
 				self.send_conn.send(3)
-				sleep(65)
+				sleep(1)
 
 
 	def check_changes(self):
